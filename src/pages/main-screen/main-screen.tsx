@@ -32,7 +32,7 @@ function MainScreen({cardsNumber}: MainScreenProps): JSX.Element {
                     <span className="header__user-name user__name">
                   Oliver.conner@gmail.com
                     </span>
-                    <span className="header__favorite-count">3 {cardsNumber}</span>
+                    <span className="header__favorite-count">3</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
@@ -115,12 +115,9 @@ function MainScreen({cardsNumber}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-
+                {Array.from({ length: cardsNumber }).map(() => (
+                  <Card key={'card'} />
+                ))}
               </div>
             </section>
             <div className="cities__right-section">
