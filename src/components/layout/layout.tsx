@@ -1,27 +1,11 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { AppRoute } from '../../consts';
-
-const getLayoutState = (pathName: AppRoute) => {
-  let rootClassName = '';
-  let linkCalssName = '';
-  let isRenderUser = false;
-
-  if (pathName === AppRoute.Root) {
-    rootClassName = 'page--gray page--main';
-    linkCalssName = 'header__logo-link--active';
-    isRenderUser = true;
-  } else if (pathName === AppRoute.Login) {
-    rootClassName = 'page--gray page--login';
-  } else if (pathName === AppRoute.Favorites || pathName === AppRoute.Offer) {
-    isRenderUser = true;
-  }
-
-  return { rootClassName , linkCalssName, isRenderUser };
-};
+import { AppRoute, AuthorizationStatus } from '../../consts';
+import { getAuthorizationStatus, getLayoutState } from '../../helpers';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
-  const { rootClassName , linkCalssName, isRenderUser } = getLayoutState(pathname as AppRoute);
+  const { rootClassName , linkCalssName, isRenderUser, isRenderfooter } = getLayoutState(pathname as AppRoute);
+  const authorizationStatus = getAuthorizationStatus();
 
   return (
     <div className={`page ${rootClassName }`}>
@@ -49,17 +33,25 @@ function Layout(): JSX.Element {
                         href="#"
                       >
                         <div className="header__avatar-wrapper user__avatar-wrapper"></div>
-                        <span className="header__user-name user__name">
-                          Oliver.conner@gmail.com
-                        </span>
-                        <span className="header__favorite-count">3</span>
+                        {authorizationStatus === AuthorizationStatus.Auth ? (
+                          <>
+                            <span className="header__user-name user__name">
+                        Oliver.conner@gmail.com
+                            </span>
+                            <span className="header__favorite-count">3</span>
+                          </>
+                        ) : <span className="header__login">Sign in</span>}
+
                       </a>
                     </li>
-                    <li className="header__nav-item">
-                      <a className="header__nav-link" href="#">
-                        <span className="header__signout">Sign out</span>
-                      </a>
-                    </li>
+                    {authorizationStatus === AuthorizationStatus.Auth ? (
+                      <li className="header__nav-item">
+                        <a className="header__nav-link" href="#">
+                          <span className="header__signout">Sign out</span>
+                        </a>
+                      </li>
+                    ) : null}
+
                   </ul>
                 </nav>
               ) : null
@@ -68,6 +60,13 @@ function Layout(): JSX.Element {
         </div>
       </header>
       <Outlet />
+      {isRenderfooter ? (
+        <footer className="footer container">
+          <a className="footer__logo-link" href="main.html">
+            <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
+          </a>
+        </footer>
+      ) : null}
     </div>
   );
 }

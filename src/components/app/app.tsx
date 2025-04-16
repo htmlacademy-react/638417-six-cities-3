@@ -1,4 +1,4 @@
-import { AppRoute, AuthorizationStatus } from '../../consts';
+import { AppRoute } from '../../consts';
 import {HelmetProvider} from 'react-helmet-async';
 import EmptyScreen from '../../pages/empty-screen/empty-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
@@ -8,12 +8,15 @@ import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
+import { getAuthorizationStatus } from '../../helpers';
 
 type AppScreenProps = {
   cardsNumber: number;
 }
 
 function App({cardsNumber}: AppScreenProps): JSX.Element {
+  const authorizationStatus = getAuthorizationStatus();
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -33,7 +36,7 @@ function App({cardsNumber}: AppScreenProps): JSX.Element {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus = {AuthorizationStatus.Auth}>
+                <PrivateRoute authorizationStatus = {authorizationStatus}>
                   <FavoritesScreen />
                 </PrivateRoute>
               }
