@@ -1,5 +1,5 @@
-import { AuthorizationStatus } from '../../consts';
-import LoginScreen from '../../pages/login-screen/login-screen';
+import { Navigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../consts';
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
@@ -10,7 +10,7 @@ function PrivateRoute({authorizationStatus, children}:PrivateRouteProps): JSX.El
   return (
     authorizationStatus === AuthorizationStatus.Auth
       ? children
-      : <LoginScreen />
+      : <Navigate to={AppRoute.Login} />
   );
 }
 
