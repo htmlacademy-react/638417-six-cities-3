@@ -1,4 +1,4 @@
-import Card from '../../components/app/card/card';
+import Card from '../../components/card/card';
 
 type MainScreenProps = {
   cardsNumber: number;

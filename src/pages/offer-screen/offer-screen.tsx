@@ -1,4 +1,8 @@
+import { useParams } from 'react-router-dom';
+
 function OfferScreen (): JSX.Element {
+  const { id } = useParams();
+
   return (
     <div className="page">
       <header className="header">
@@ -42,6 +46,7 @@ function OfferScreen (): JSX.Element {
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
+            {id}
             <div className="offer__gallery">
               <div className="offer__image-wrapper">
                 <img
