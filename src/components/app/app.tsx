@@ -31,7 +31,12 @@ function App({cardsNumber}: AppScreenProps): JSX.Element {
             />
             <Route
               path={AppRoute.Login}
-              element={<LoginScreen />}
+
+              element={
+                <PrivateRoute authorizationStatus = {authorizationStatus} isReverse>
+                  <LoginScreen />
+                </PrivateRoute>
+              }
             />
             <Route
               path={AppRoute.Favorites}
