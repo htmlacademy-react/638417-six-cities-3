@@ -1,9 +1,10 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts';
 import { getAuthorizationStatus, getLayoutState } from '../../helpers';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
+
   const { rootClassName , linkCalssName, isRenderUser, isRenderfooter } = getLayoutState(pathname as AppRoute);
   const authorizationStatus = getAuthorizationStatus();
 
@@ -13,7 +14,17 @@ function Layout(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className={`header__logo-link ${linkCalssName}`}>
+              {pathname !== String(AppRoute.Root) ? (
+                <Link to={AppRoute.Root} className={`header__logo-link ${linkCalssName}`}>
+                  <img
+                    className="header__logo"
+                    src="img/logo.svg"
+                    alt="6 cities logo"
+                    width={81}
+                    height={41}
+                  />
+                </Link>
+              ) : (
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -21,7 +32,7 @@ function Layout(): JSX.Element {
                   width={81}
                   height={41}
                 />
-              </a>
+              )}
             </div>
             {
               isRenderUser ? (
