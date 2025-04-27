@@ -27,10 +27,11 @@ export type TOffer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  description: string;
+  description?: string;
   bedrooms: number;
   goods: string[];
   host: THost;
   images: string[];
   maxAdults: number;
+  previewImage?: string;
 }

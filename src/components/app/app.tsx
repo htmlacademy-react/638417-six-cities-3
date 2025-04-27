@@ -29,7 +29,7 @@ function App({offers, cardsNumber}: AppScreenProps): JSX.Element {
           >
             <Route
               index
-              element={<MainScreen cardsNumber={cardsNumber} />}
+              element={<MainScreen offers={offers} cardsNumber={cardsNumber} />}
             />
             <Route
               path={AppRoute.Login}

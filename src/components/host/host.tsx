@@ -2,7 +2,7 @@ import { THost } from '../../types/offers';
 
 type OfferScreenProps = {
   host: THost;
-  description: string;
+  description?: string;
 }
 
 function Host({host, description}: OfferScreenProps): JSX.Element {
