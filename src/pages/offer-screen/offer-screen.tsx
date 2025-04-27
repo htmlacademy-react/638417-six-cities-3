@@ -1,17 +1,33 @@
 import { useParams } from 'react-router-dom';
 import { getAuthorizationStatus } from '../../helpers';
 import { AuthorizationStatus } from '../../consts';
+import { TOffer } from '../../types/offers';
+import EmptyScreen from '../empty-screen/empty-screen';
 
-function OfferScreen(): JSX.Element {
+
+type OfferScreenProps = {
+  offers: TOffer[];
+}
+
+function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
   const authorizationStatus = getAuthorizationStatus();
 
-  return (
+  const currentOffer: TOffer | undefined = offers.find((o: TOffer) => o.id === id);
 
+  // eslint-disable-next-line no-console
+  console.log(offers);
+
+  if (!currentOffer) {
+    return <EmptyScreen />;
+  }
+
+  const { title } = currentOffer;
+
+  return (
     <main className="page__main page__main--offer">
       <section className="offer">
         <div className="offer__gallery-container container">
-          {id}
           <div className="offer__gallery">
             <div className="offer__image-wrapper">
               <img
@@ -63,9 +79,7 @@ function OfferScreen(): JSX.Element {
               <span>Premium</span>
             </div>
             <div className="offer__name-wrapper">
-              <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
-              </h1>
+              <h1 className="offer__name">{title}</h1>
               <button className="offer__bookmark-button button" type="button">
                 <svg className="offer__bookmark-icon" width={31} height={33}>
                   <use xlinkHref="#icon-bookmark" />
@@ -83,10 +97,10 @@ function OfferScreen(): JSX.Element {
             <ul className="offer__features">
               <li className="offer__feature offer__feature--entire">Apartment</li>
               <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
+                3 Bedrooms
               </li>
               <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
+                Max 4 adults
               </li>
             </ul>
             <div className="offer__price">
@@ -125,20 +139,20 @@ function OfferScreen(): JSX.Element {
               </div>
               <div className="offer__description">
                 <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by the
-                    unique lightness of Amsterdam. The building is green and from
-                    18th century.
+                  A quiet cozy and picturesque that hides behind a a river by the
+                  unique lightness of Amsterdam. The building is green and from
+                  18th century.
                 </p>
                 <p className="offer__text">
-                    An independent House, strategically located between Rembrand
-                    Square and National Opera, but where the bustle of the city
-                    comes to rest in this alley flowery and colorful.
+                  An independent House, strategically located between Rembrand
+                  Square and National Opera, but where the bustle of the city
+                  comes to rest in this alley flowery and colorful.
                 </p>
               </div>
             </div>
             <section className="offer__reviews reviews">
               <h2 className="reviews__title">
-                  Reviews · <span className="reviews__amount">1</span>
+                Reviews · <span className="reviews__amount">1</span>
               </h2>
               <ul className="reviews__list">
                 <li className="reviews__item">
@@ -162,12 +176,12 @@ function OfferScreen(): JSX.Element {
                       </div>
                     </div>
                     <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by
-                        the unique lightness of Amsterdam. The building is green and
-                        from 18th century.
+                      A quiet cozy and picturesque that hides behind a a river by
+                      the unique lightness of Amsterdam. The building is green and
+                      from 18th century.
                     </p>
                     <time className="reviews__time" dateTime="2019-04-24">
-                        April 2019
+                      April 2019
                     </time>
                   </div>
                 </li>
@@ -175,7 +189,7 @@ function OfferScreen(): JSX.Element {
               {authorizationStatus === AuthorizationStatus.Auth ? (
                 <form className="reviews__form form" action="#" method="post">
                   <label className="reviews__label form__label" htmlFor="review">
-                      Your review
+                    Your review
                   </label>
                   <div className="reviews__rating-form form__rating">
                     <input
@@ -268,9 +282,9 @@ function OfferScreen(): JSX.Element {
                   />
                   <div className="reviews__button-wrapper">
                     <p className="reviews__help">
-                        To submit review please make sure to set{' '}
+                      To submit review please make sure to set{' '}
                       <span className="reviews__star">rating</span> and describe
-                        your stay with at least{' '}
+                      your stay with at least{' '}
                       <b className="reviews__text-amount">50 characters</b>.
                     </p>
                     <button
@@ -278,7 +292,7 @@ function OfferScreen(): JSX.Element {
                       type="submit"
                       disabled
                     >
-                        Submit
+                      Submit
                     </button>
                   </div>
                 </form>
@@ -291,7 +305,7 @@ function OfferScreen(): JSX.Element {
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">
-              Other places in the neighbourhood
+            Other places in the neighbourhood
           </h2>
           <div className="near-places__list places__list">
             <article className="near-places__card place-card">

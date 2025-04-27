@@ -9,12 +9,14 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import { getAuthorizationStatus } from '../../helpers';
+import { TOffer } from '../../types/offers';
 
 type AppScreenProps = {
   cardsNumber: number;
+  offers: TOffer[];
 }
 
-function App({cardsNumber}: AppScreenProps): JSX.Element {
+function App({offers, cardsNumber}: AppScreenProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
 
   return (
@@ -31,7 +33,6 @@ function App({cardsNumber}: AppScreenProps): JSX.Element {
             />
             <Route
               path={AppRoute.Login}
-
               element={
                 <PrivateRoute authorizationStatus = {authorizationStatus} isReverse>
                   <LoginScreen />
@@ -48,7 +49,7 @@ function App({cardsNumber}: AppScreenProps): JSX.Element {
             />
             <Route
               path={`${AppRoute.Offer}/:id`}
-              element={<OfferScreen />}
+              element={<OfferScreen offers={offers}/>}
             />
             <Route
               path="*"
