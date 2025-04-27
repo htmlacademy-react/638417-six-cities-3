@@ -9,6 +9,8 @@ type CardProps = {
 function Card({offer}: CardProps): JSX.Element {
   const {isPremium, previewImage, price, rating, title, type, id} = offer;
 
+  // Mouse handlers to state
+
   return (
     <article className="cities__card place-card">
       {isPremium && (
