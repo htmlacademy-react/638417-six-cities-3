@@ -10,6 +10,7 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import { getAuthorizationStatus } from '../../helpers';
 import { TOffer } from '../../types/offers';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 type AppScreenProps = {
   cardsNumber: number;
@@ -22,6 +23,7 @@ function App({offers, cardsNumber}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route
             path={AppRoute.Root}
