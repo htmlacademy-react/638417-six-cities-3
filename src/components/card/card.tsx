@@ -4,15 +4,26 @@ import { TOffer } from '../../types/offers';
 
 type CardProps = {
   offer: TOffer;
+  handleHover: (offer?: TOffer) => void;
 }
 
-function Card({offer}: CardProps): JSX.Element {
+function Card({offer, handleHover}: CardProps): JSX.Element {
   const {isPremium, previewImage, price, rating, title, type, id} = offer;
 
-  // Mouse handlers to state
+  const handleMouseEnter = () => {
+    handleHover(offer);
+  };
+
+  const handleMouseLeave = () => {
+    handleHover();
+  };
 
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>

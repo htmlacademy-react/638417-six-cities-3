@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { TOffer } from '../../types/offers';
 import Card from '../card/card';
+import { Nullable } from 'vitest';
 
 type CardListProps = {
   cardsNumber: number;
@@ -7,6 +9,18 @@ type CardListProps = {
 }
 
 function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
+  const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
+
+  const handleHover = (offer?: TOffer) => {
+    setActiveOffer(offer || null);
+  };
+
+  useEffect(()=>{
+    // eslint-disable-next-line no-console
+    console.log('activeOffer', activeOffer);
+
+  }, [activeOffer]);
+
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
@@ -41,7 +55,7 @@ function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
         <div className="cities__places-list places__list tabs__content">
           {offers.length
             ? (
-              offers.map((o)=><Card key={o.id} offer={o} />)
+              offers.map((o)=><Card key={o.id} offer={o} handleHover={handleHover}/>)
             )
             : 'No data'}
         </div>

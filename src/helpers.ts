@@ -1,6 +1,6 @@
 import { AppRoute, AuthorizationStatus } from './consts';
 
-export const getAuthorizationStatus = () => AuthorizationStatus.NoAuth;
+export const getAuthorizationStatus = () => AuthorizationStatus.Auth;
 
 export const getLayoutState = (pathName: AppRoute) => {
   let rootClassName = '';
