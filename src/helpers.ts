@@ -1,4 +1,6 @@
 import { AppRoute, AuthorizationStatus } from './consts';
+import { GroupedOffer } from './types/helpers';
+import { TOffer } from './types/offers';
 
 export const getAuthorizationStatus = () => AuthorizationStatus.Auth;
 
@@ -23,3 +25,22 @@ export const getLayoutState = (pathName: AppRoute) => {
 
   return { rootClassName , linkCalssName, isRenderUser, isRenderfooter };
 };
+
+export function groupOffersByCity(offers: TOffer[]): GroupedOffer[] {
+  const grouped = offers.reduce<Record<string, TOffer[]>>((acc, offer) => {
+    const cityName = offer.city.name;
+
+    if (!acc[cityName]) {
+      acc[cityName] = [];
+    }
+
+    acc[cityName].push(offer);
+
+    return acc;
+  }, {});
+
+  return Object.entries(grouped).map(([city, cityOffers]) => ({
+    city,
+    offers: cityOffers,
+  }));
+}

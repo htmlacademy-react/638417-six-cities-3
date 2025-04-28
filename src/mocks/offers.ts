@@ -19,7 +19,7 @@ export const offers: TOffer[] = [
       longitude: 4.673877537499948,
       zoom: 8,
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 4,
     description: 'A quiet cozy and picturesque that hides behind a river by the unique lightness of Amsterdam.',
@@ -27,11 +27,12 @@ export const offers: TOffer[] = [
     goods: ['Heating'],
     host: {
       name: 'Oliver Conner',
-      avatarUrl: 'https://url-to-image/image.png',
+      avatarUrl: 'img/avatar-angelina.jpg',
       isPro: false,
     },
-    images: ['https://url-to-image/image.png'],
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg'],
     maxAdults: 4,
+    previewImage: 'img/apartment-01.jpg',
   },
   {
     id: '8bf6c712-d57d-4c1b-9d5f-2e6f5f2c8f12',
@@ -59,11 +60,12 @@ export const offers: TOffer[] = [
     goods: ['Wi-Fi', 'Kitchen', 'Cable TV'],
     host: {
       name: 'Emma Dubois',
-      avatarUrl: 'https://url-to-image/host1.png',
+      avatarUrl: 'img/avatar-angelina.jpg',
       isPro: true,
     },
-    images: ['https://url-to-image/paris-apartment.png'],
+    images: ['img/apartment-02.jpg'],
     maxAdults: 3,
+    previewImage: 'img/apartment-02.jpg',
   },
   {
     id: '1dc7fa88-3722-4664-9040-8389c3a414aa',
@@ -91,11 +93,12 @@ export const offers: TOffer[] = [
     goods: ['Washing machine', 'Coffee machine', 'Parking'],
     host: {
       name: 'Max Mustermann',
-      avatarUrl: 'https://url-to-image/host2.png',
+      avatarUrl: 'img/avatar-angelina.jpg',
       isPro: true,
     },
-    images: ['https://url-to-image/berlin-house.png'],
+    images: ['img/apartment-03.jpg'],
     maxAdults: 6,
+    previewImage: 'img/apartment-03.jpg',
   },
   {
     id: '5a0c3b59-e998-42f2-88b3-8c8f6a5128cc',
@@ -123,10 +126,11 @@ export const offers: TOffer[] = [
     goods: ['Heating', 'Wi-Fi'],
     host: {
       name: 'Lotte Jansen',
-      avatarUrl: 'https://url-to-image/host3.png',
+      avatarUrl: 'img/avatar-angelina.jpg',
       isPro: false,
     },
-    images: ['https://url-to-image/amsterdam-studio.png'],
+    images: ['img/apartment-01.jpg'],
     maxAdults: 2,
+    previewImage: 'img/apartment-01.jpg',
   },
 ];
