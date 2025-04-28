@@ -30,7 +30,7 @@ export const offers: TOffer[] = [
       avatarUrl: 'img/avatar-angelina.jpg',
       isPro: false,
     },
-    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg'],
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
     maxAdults: 4,
     previewImage: 'img/apartment-01.jpg',
   },

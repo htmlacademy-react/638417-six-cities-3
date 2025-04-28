@@ -45,7 +45,7 @@ function ReviewsForm():JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={''}
+        value={review}
         onChange={handleChange}
       />
       <div className="reviews__button-wrapper">
