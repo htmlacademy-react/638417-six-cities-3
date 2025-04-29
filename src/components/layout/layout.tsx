@@ -1,9 +1,10 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts';
 import { getAuthorizationStatus, getLayoutState } from '../../helpers';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
+
   const { rootClassName , linkCalssName, isRenderUser, isRenderfooter } = getLayoutState(pathname as AppRoute);
   const authorizationStatus = getAuthorizationStatus();
 
@@ -13,7 +14,17 @@ function Layout(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className={`header__logo-link ${linkCalssName}`}>
+              {pathname !== String(AppRoute.Root) ? (
+                <Link to={AppRoute.Root} className={`header__logo-link ${linkCalssName}`}>
+                  <img
+                    className="header__logo"
+                    src="img/logo.svg"
+                    alt="6 cities logo"
+                    width={81}
+                    height={41}
+                  />
+                </Link>
+              ) : (
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -21,16 +32,16 @@ function Layout(): JSX.Element {
                   width={81}
                   height={41}
                 />
-              </a>
+              )}
             </div>
             {
               isRenderUser ? (
                 <nav className="header__nav">
                   <ul className="header__nav-list">
                     <li className="header__nav-item user">
-                      <a
+                      <Link
                         className="header__nav-link header__nav-link--profile"
-                        href="#"
+                        to={AppRoute.Favorites}
                       >
                         <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                         {authorizationStatus === AuthorizationStatus.Auth ? (
@@ -42,7 +53,7 @@ function Layout(): JSX.Element {
                           </>
                         ) : <span className="header__login">Sign in</span>}
 
-                      </a>
+                      </Link>
                     </li>
                     {authorizationStatus === AuthorizationStatus.Auth ? (
                       <li className="header__nav-item">

@@ -9,17 +9,21 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import { getAuthorizationStatus } from '../../helpers';
+import { TOffer } from '../../types/offers';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 type AppScreenProps = {
   cardsNumber: number;
+  offers: TOffer[];
 }
 
-function App({cardsNumber}: AppScreenProps): JSX.Element {
+function App({offers, cardsNumber}: AppScreenProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
 
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route
             path={AppRoute.Root}
@@ -27,11 +31,10 @@ function App({cardsNumber}: AppScreenProps): JSX.Element {
           >
             <Route
               index
-              element={<MainScreen cardsNumber={cardsNumber} />}
+              element={<MainScreen offers={offers} cardsNumber={cardsNumber} />}
             />
             <Route
               path={AppRoute.Login}
-
               element={
                 <PrivateRoute authorizationStatus = {authorizationStatus} isReverse>
                   <LoginScreen />
@@ -42,13 +45,13 @@ function App({cardsNumber}: AppScreenProps): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute authorizationStatus = {authorizationStatus}>
-                  <FavoritesScreen />
+                  <FavoritesScreen offers={offers}/>
                 </PrivateRoute>
               }
             />
             <Route
               path={`${AppRoute.Offer}/:id`}
-              element={<OfferScreen />}
+              element={<OfferScreen offers={offers}/>}
             />
             <Route
               path="*"
