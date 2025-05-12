@@ -14,36 +14,44 @@ type MapComponentProps = {
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconAnchor: [20, 40],
 });
 
 const currentCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconAnchor: [20, 40],
 });
 
 function MapComponent({ city, offers, activeOffer }: MapComponentProps): JSX.Element {
   const mapContainerRef = useRef(null);
   const map = useMap({ location: city.location, containerRef: mapContainerRef });
+  const markersRef = useRef<leaflet.Marker[]>([]);
 
-  useEffect(() =>{
+  useEffect(() => {
     if (map) {
-      offers.forEach((o)=>{
-        leaflet
-          .marker({
-            lat: o.location.latitude,
-            lng: o.location.longitude,
-          }, {
-            icon: o.title === activeOffer?.title ? currentCustomIcon : defaultCustomIcon,
-          })
-          .addTo(map);
+      markersRef.current.forEach((marker) => {
+        map.removeLayer(marker);
+      });
+      markersRef.current = [];
+
+      offers.forEach((offer) => {
+        const marker = leaflet.marker(
+          {
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
+          },
+          {
+            icon: offer.title === activeOffer?.title ? currentCustomIcon : defaultCustomIcon,
+          }
+        ).addTo(map);
+
+        markersRef.current.push(marker);
       });
     }
+  }, [map, offers, activeOffer]);
 
-  },[map, offers, activeOffer]);
-
-  return <section className="cities__map map" ref={mapContainerRef}/>;
+  return <section className="cities__map map" ref={mapContainerRef} />;
 }
 
 export default MapComponent;

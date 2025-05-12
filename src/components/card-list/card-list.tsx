@@ -22,7 +22,7 @@ function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{cardsNumber} places to stay in Amsterdam</b>
+        <b className="places__found">{cardsNumber} places to stay in {currentCity?.name}</b>
         <form className="places__sorting" action="#" method="get">
           <span className="places__sorting-caption">Sort by</span>
           <span className="places__sorting-type" tabIndex={0}>
