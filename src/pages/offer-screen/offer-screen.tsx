@@ -1,19 +1,19 @@
 import { useParams } from 'react-router-dom';
-import { getAuthorizationStatus } from '../../helpers';
-import { AuthorizationStatus, RATING_MAX } from '../../consts';
+import { RATING_MAX } from '../../consts';
 import { TOffer } from '../../types/offers';
 import EmptyScreen from '../empty-screen/empty-screen';
 import Host from '../../components/host/host';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
 import { Helmet } from 'react-helmet-async';
+import Reviews from '../../components/reviews/reviews';
+import { TReviews } from '../../types/reviews';
 
 type OfferScreenProps = {
   offers: TOffer[];
+  reviews: TReviews[];
 }
 
-function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
+function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
-  const authorizationStatus = getAuthorizationStatus();
 
   const currentOffer: TOffer | undefined = offers.find((o: TOffer) => o.id === id);
 
@@ -28,7 +28,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>6 cities. {title}</title>
+        <title>6 cities.{title}</title>
       </Helmet>
       <main className="page__main page__main--offer">
         <section className="offer">
@@ -93,46 +93,7 @@ function OfferScreen({ offers }: OfferScreenProps): JSX.Element {
                 </div>
               )}
               <Host host={host} description={description}/>
-              <section className="offer__reviews reviews">
-                <h2 className="reviews__title">
-                Reviews · <span className="reviews__amount">1</span>
-                </h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img
-                          className="reviews__avatar user__avatar"
-                          src="img/avatar-max.jpg"
-                          width={54}
-                          height={54}
-                          alt="Reviews avatar"
-                        />
-                      </div>
-                      <span className="reviews__user-name">Max</span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{ width: '80%' }} />
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                      A quiet cozy and picturesque that hides behind a a river by
-                      the unique lightness of Amsterdam. The building is green and
-                      from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">
-                      April 2019
-                      </time>
-                    </div>
-                  </li>
-                </ul>
-                {authorizationStatus === AuthorizationStatus.Auth ? (
-                  <ReviewsForm />
-                ) : null}
-              </section>
+              <Reviews reviews={reviews}/>
             </div>
           </div>
           <section className="offer__map map" />

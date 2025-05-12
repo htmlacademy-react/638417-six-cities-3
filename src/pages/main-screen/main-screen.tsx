@@ -4,11 +4,10 @@ import { TOffer } from '../../types/offers';
 import { groupOffersByCity } from '../../helpers';
 
 type MainScreenProps = {
-  cardsNumber: number;
   offers: TOffer[];
 }
 
-function MainScreen({cardsNumber, offers}: MainScreenProps): JSX.Element {
+function MainScreen({offers}: MainScreenProps): JSX.Element {
   const [curentCity, setCurentCity] = useState('Amsterdam');
   const [curentOffers, setCurentOffers] = useState<TOffer[]>([]);
 
@@ -42,7 +41,7 @@ function MainScreen({cardsNumber, offers}: MainScreenProps): JSX.Element {
         </section>
       </div>
       <div className="cities">
-        <CardList cardsNumber={cardsNumber} offers={curentOffers}/>
+        <CardList offers={curentOffers}/>
       </div>
     </main>
   );

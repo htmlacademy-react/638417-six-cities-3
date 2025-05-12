@@ -1,7 +1,3 @@
-export const Setting = {
-  cardsNumber: 5
-};
-
 export enum AppRoute {
   Login = '/login',
   Root = '/',

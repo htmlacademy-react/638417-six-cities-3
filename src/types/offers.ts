@@ -6,7 +6,7 @@ export type TLocation = {
 
 export type TAppartType = 'apartment' | 'room' | 'house' | 'hotel';
 
-export type THost = {
+export type TUser = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
@@ -30,7 +30,7 @@ export type TOffer = {
   description?: string;
   bedrooms: number;
   goods: string[];
-  host: THost;
+  host: TUser;
   images: string[];
   maxAdults: number;
   previewImage?: string;
