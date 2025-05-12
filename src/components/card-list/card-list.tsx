@@ -16,14 +16,7 @@ function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
     setActiveOffer(offer || null);
   };
 
-  const currentCity = {
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 10,
-    },
-  };
+  const currentCity = offers[0]?.city;
 
   return (
     <div className="cities__places-container container">
@@ -65,7 +58,7 @@ function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
         </div>
       </section>
       <div className="cities__right-section">
-        <MapComponent city={currentCity} offers={offers} activeOffer={activeOffer}/>
+        {offers.length > 0 && <MapComponent city={currentCity} offers={offers} activeOffer={activeOffer}/>}
       </div>
     </div>
   );

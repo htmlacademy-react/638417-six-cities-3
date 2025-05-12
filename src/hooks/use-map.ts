@@ -1,22 +1,21 @@
+import { useEffect, useRef } from 'react';
 import leaflet, { Map as LeafletMap } from 'leaflet';
 import { TLocation } from '../types/offers';
-import { useEffect, useRef, useState } from 'react';
 
 type UseMapProps = {
   location: TLocation;
   containerRef: React.RefObject<HTMLElement | null>;
-}
+};
 
 const TILE_LAYER_PATTERN = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 const TILE_LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
 export const useMap = ({ location, containerRef }: UseMapProps): LeafletMap | null => {
-  const [map, setMap] = useState<LeafletMap | null>(null);
-  const isRenderRef = useRef(false);
+  const mapRef = useRef<LeafletMap | null>(null);
 
   useEffect(() => {
-    if (containerRef.current !== null && !isRenderRef.current) {
-      const instance = leaflet.map(containerRef.current, {
+    if (containerRef.current !== null && mapRef.current === null) {
+      const mapInstance = leaflet.map(containerRef.current, {
         center: {
           lat: location.latitude,
           lng: location.longitude,
@@ -28,12 +27,17 @@ export const useMap = ({ location, containerRef }: UseMapProps): LeafletMap | nu
         .tileLayer(TILE_LAYER_PATTERN, {
           attribution: TILE_LAYER_ATTRIBUTION,
         })
-        .addTo(instance);
+        .addTo(mapInstance);
 
-      setMap(instance);
-      isRenderRef.current = true;
+      mapRef.current = mapInstance;
     }
-  }, [location, containerRef]);
+  }, [containerRef, location]);
 
-  return map;
+  useEffect(() => {
+    if (mapRef.current) {
+      mapRef.current.setView([location.latitude, location.longitude], location.zoom);
+    }
+  }, [location]);
+
+  return mapRef.current;
 };

@@ -10,8 +10,8 @@ export const offers: TOffer[] = [
       name: 'Amsterdam',
       location: {
         latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
-        zoom: 8,
+        longitude: 4.9,
+        zoom: 12,
       },
     },
     location: {
@@ -73,16 +73,16 @@ export const offers: TOffer[] = [
     type: 'house',
     price: 200,
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 48.8566,
+        longitude: 2.3522,
         zoom: 8,
       },
     },
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.929309666406198,
+      latitude: 48.8584,
+      longitude: 2.2945,
       zoom: 8,
     },
     isFavorite: false,
@@ -106,16 +106,16 @@ export const offers: TOffer[] = [
     type: 'hotel',
     price: 80,
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location: {
-        latitude: 52.35514938496378,
-        longitude: 4.673877537499948,
+        latitude: 48.8566,
+        longitude: 2.3522,
         zoom: 8,
       },
     },
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 48.8606,
+      longitude: 2.3376,
       zoom: 8,
     },
     isFavorite: true,
@@ -132,5 +132,5 @@ export const offers: TOffer[] = [
     images: ['img/apartment-01.jpg'],
     maxAdults: 2,
     previewImage: 'img/apartment-01.jpg',
-  },
+  }
 ];
