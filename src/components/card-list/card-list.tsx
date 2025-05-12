@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TOffer } from '../../types/offers';
 import Card from '../card/card';
 import { Nullable } from 'vitest';
+import MapComponent from '../map-component/map-component';
 
 type CardListProps = {
   cardsNumber: number;
@@ -15,11 +16,14 @@ function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
     setActiveOffer(offer || null);
   };
 
-  useEffect(()=>{
-    // eslint-disable-next-line no-console
-    console.log('activeOffer', activeOffer);
-
-  }, [activeOffer]);
+  const currentCity = {
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.35514938496378,
+      longitude: 4.673877537499948,
+      zoom: 10,
+    },
+  };
 
   return (
     <div className="cities__places-container container">
@@ -61,7 +65,7 @@ function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
         </div>
       </section>
       <div className="cities__right-section">
-        <section className="cities__map map" />
+        <MapComponent city={currentCity} offers={offers} activeOffer={activeOffer}/>
       </div>
     </div>
   );
