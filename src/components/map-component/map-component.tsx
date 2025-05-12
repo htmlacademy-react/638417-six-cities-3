@@ -42,7 +42,7 @@ function MapComponent({ city, offers, activeOffer }: MapComponentProps): JSX.Ele
             lng: offer.location.longitude,
           },
           {
-            icon: offer.title === activeOffer?.title ? currentCustomIcon : defaultCustomIcon,
+            icon: offer.id === activeOffer?.id ? currentCustomIcon : defaultCustomIcon,
           }
         ).addTo(map);
 

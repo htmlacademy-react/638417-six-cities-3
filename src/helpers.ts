@@ -1,5 +1,5 @@
 import { AppRoute, AuthorizationStatus } from './consts';
-import { GroupedOffer } from './types/helpers';
+import { GroupedOffer, TReviewDate } from './types/helpers';
 import { TOffer } from './types/offers';
 
 export const getAuthorizationStatus = () => AuthorizationStatus.Auth;
@@ -43,4 +43,14 @@ export function groupOffersByCity(offers: TOffer[]): GroupedOffer[] {
     city,
     offers: cityOffers,
   }));
+}
+
+export function formatDateForTimeTag(rawDate : string, locale:string): TReviewDate {
+  const date = new Date(rawDate);
+  const dateTime = date.toISOString().split('T')[0];
+  const dateTextContent = date.toLocaleDateString(locale, {
+    month: 'long',
+    year: 'numeric',
+  });
+  return { dateTime, dateTextContent };
 }
