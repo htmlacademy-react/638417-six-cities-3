@@ -9,6 +9,7 @@ type MapComponentProps = {
   city: TCity;
   offers: TOffer[];
   activeOffer?: TOffer | null;
+  className: string;
 };
 
 const defaultCustomIcon = leaflet.icon({
@@ -23,7 +24,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-function MapComponent({ city, offers, activeOffer }: MapComponentProps): JSX.Element {
+function MapComponent({ city, offers, activeOffer, className }: MapComponentProps): JSX.Element {
   const mapContainerRef = useRef(null);
   const map = useMap({ location: city.location, containerRef: mapContainerRef });
   const markersRef = useRef<leaflet.Marker[]>([]);
@@ -51,7 +52,7 @@ function MapComponent({ city, offers, activeOffer }: MapComponentProps): JSX.Ele
     }
   }, [map, offers, activeOffer]);
 
-  return <section className="cities__map map" ref={mapContainerRef} />;
+  return <section className={`${className} map`} ref={mapContainerRef} />;
 }
 
 export default MapComponent;

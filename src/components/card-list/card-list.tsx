@@ -57,7 +57,7 @@ function CardList({offers}: CardListProps): JSX.Element {
         </div>
       </section>
       <div className="cities__right-section">
-        {offers.length > 0 && <MapComponent city={currentCity} offers={offers} activeOffer={activeOffer}/>}
+        {offers.length > 0 && <MapComponent className='cities__map' city={currentCity} offers={offers} activeOffer={activeOffer}/>}
       </div>
     </div>
   );

@@ -5,10 +5,11 @@ import { TOffer } from '../../types/offers';
 type CardProps = {
   offer: TOffer;
   handleHover: (offer?: TOffer) => void;
+  nearPlaces?: boolean;
 }
 
-function Card({offer, handleHover}: CardProps): JSX.Element {
-  const {isPremium, previewImage, price, rating, title, type, id} = offer;
+function Card({offer, handleHover, nearPlaces}: CardProps): JSX.Element {
+  const {isPremium, previewImage, price, rating, title, type, id, isFavorite} = offer;
 
   const handleMouseEnter = () => {
     handleHover(offer);
@@ -20,7 +21,7 @@ function Card({offer, handleHover}: CardProps): JSX.Element {
 
   return (
     <article
-      className="cities__card place-card"
+      className={`place-card ${nearPlaces ? 'near-places__card' : 'cities__card' }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -31,7 +32,9 @@ function Card({offer, handleHover}: CardProps): JSX.Element {
           </div>
         )}
 
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div
+          className={`place-card__image-wrapper ${nearPlaces ? 'near-places__image-wrapper' : 'cities__image-wrapper' }`}
+        >
 
           <img
             className="place-card__image"
@@ -49,7 +52,7 @@ function Card({offer, handleHover}: CardProps): JSX.Element {
               <span className="place-card__price-text">/&nbsp;night</span>
             </div>
             <button
-              className="place-card__bookmark-button button"
+              className={`place-card__bookmark-button button ${isFavorite && 'place-card__bookmark-button--active'}`}
               type="button"
             >
               <svg

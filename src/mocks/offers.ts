@@ -19,7 +19,7 @@ export const offers: TOffer[] = [
       longitude: 4.85309666406198,
       zoom: 8,
     },
-    isFavorite: true,
+    isFavorite: false,
     isPremium: false,
     rating: 4,
     description: 'A quiet cozy and picturesque that hides behind a river by the unique lightness of Amsterdam.',
@@ -38,7 +38,7 @@ export const offers: TOffer[] = [
     id: '6af6f711-c28d-4121-82cd-',
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
-    price: 120,
+    price: 80,
     city: {
       name: 'Amsterdam',
       location: {
@@ -53,7 +53,7 @@ export const offers: TOffer[] = [
       zoom: 8,
     },
     isFavorite: true,
-    isPremium: false,
+    isPremium: true,
     rating: 4,
     description: 'A quiet cozy and picturesque that hides behind a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
@@ -65,13 +65,13 @@ export const offers: TOffer[] = [
     },
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
     maxAdults: 4,
-    previewImage: 'img/apartment-01.jpg',
+    previewImage: 'img/apartment-02.jpg',
   },
   {
     id: '6af6f711-c28d-4121-82cd',
     title: 'Beautiful & luxurious studio at great location',
     type: 'apartment',
-    price: 120,
+    price: 100,
     city: {
       name: 'Amsterdam',
       location: {
@@ -85,8 +85,8 @@ export const offers: TOffer[] = [
       longitude: 4.89,
       zoom: 8,
     },
-    isFavorite: true,
-    isPremium: false,
+    isFavorite: false,
+    isPremium: true,
     rating: 4,
     description: 'A quiet cozy and picturesque that hides behind a river by the unique lightness of Amsterdam.',
     bedrooms: 3,
@@ -98,7 +98,7 @@ export const offers: TOffer[] = [
     },
     images: ['img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
     maxAdults: 4,
-    previewImage: 'img/apartment-01.jpg',
+    previewImage: 'img/apartment-03.jpg',
   },
   {
     id: '8bf6c712-d57d-4c1b-9d5f-2e6f5f2c8f12',
