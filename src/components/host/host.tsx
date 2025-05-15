@@ -1,7 +1,7 @@
-import { THost } from '../../types/offers';
+import { TUser } from '../../types/offers';
 
 type OfferScreenProps = {
-  host: THost;
+  host: TUser;
   description?: string;
 }
 
