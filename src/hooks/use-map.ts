@@ -32,8 +32,10 @@ export const useMap = ({ location, containerRef }: UseMapProps): LeafletMap | nu
 
       setMap(instance);
       isRenderRef.current = true;
+    } else if (map) {
+      map.setView([location.latitude, location.longitude], location.zoom);
     }
-  }, [location, containerRef]);
+  }, [location, containerRef, map]);
 
   return map;
 };

@@ -11,13 +11,14 @@ import Layout from '../layout/layout';
 import { getAuthorizationStatus } from '../../helpers';
 import { TOffer } from '../../types/offers';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
+import { TReviews } from '../../types/reviews';
 
 type AppScreenProps = {
-  cardsNumber: number;
   offers: TOffer[];
+  reviews: TReviews[];
 }
 
-function App({offers, cardsNumber}: AppScreenProps): JSX.Element {
+function App({offers, reviews}: AppScreenProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
 
   return (
@@ -31,7 +32,7 @@ function App({offers, cardsNumber}: AppScreenProps): JSX.Element {
           >
             <Route
               index
-              element={<MainScreen offers={offers} cardsNumber={cardsNumber} />}
+              element={<MainScreen offers={offers} />}
             />
             <Route
               path={AppRoute.Login}
@@ -51,7 +52,7 @@ function App({offers, cardsNumber}: AppScreenProps): JSX.Element {
             />
             <Route
               path={`${AppRoute.Offer}/:id`}
-              element={<OfferScreen offers={offers}/>}
+              element={<OfferScreen offers={offers} reviews={reviews}/>}
             />
             <Route
               path="*"

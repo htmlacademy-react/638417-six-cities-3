@@ -7,7 +7,7 @@ type FavoritesScreenProps = {
   offers: TOffer[];
 }
 
-function FavoritesScreen ({offers}: FavoritesScreenProps): JSX.Element {
+function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {
   const offersByCities = groupOffersByCity(offers);
 
   return (
@@ -20,8 +20,8 @@ function FavoritesScreen ({offers}: FavoritesScreenProps): JSX.Element {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {offersByCities.length && (
-                offersByCities.map(({city, offers: currentOffers})=>(
+              {offersByCities.length > 0 ? (
+                offersByCities.map(({ city, offers: currentOffers }) => (
                   <li className="favorites__locations-items" key={city}>
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
@@ -32,11 +32,13 @@ function FavoritesScreen ({offers}: FavoritesScreenProps): JSX.Element {
                     </div>
                     <div className="favorites__places">
                       {currentOffers.length && (
-                        currentOffers.map((co) => <FavoritesCard key={co.id} offer={co}/>)
-                      ) }
+                        currentOffers.map((co) => <FavoritesCard key={co.id} offer={co} />)
+                      )}
                     </div>
                   </li>
                 ))
+              ) : (
+                <p>No saved offers yet.</p>
               )}
             </ul>
           </section>

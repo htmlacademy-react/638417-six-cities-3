@@ -5,31 +5,23 @@ import { Nullable } from 'vitest';
 import MapComponent from '../map-component/map-component';
 
 type CardListProps = {
-  cardsNumber: number;
   offers: TOffer[];
 }
 
-function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
+function CardList({offers}: CardListProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
 
   const handleHover = (offer?: TOffer) => {
     setActiveOffer(offer || null);
   };
 
-  const currentCity = {
-    name: 'Amsterdam',
-    location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
-      zoom: 10,
-    },
-  };
+  const currentCity = offers[0]?.city;
 
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{cardsNumber} places to stay in Amsterdam</b>
+        <b className="places__found">{offers.length} places to stay in {currentCity?.name}</b>
         <form className="places__sorting" action="#" method="get">
           <span className="places__sorting-caption">Sort by</span>
           <span className="places__sorting-type" tabIndex={0}>
@@ -65,7 +57,7 @@ function CardList({cardsNumber, offers}: CardListProps): JSX.Element {
         </div>
       </section>
       <div className="cities__right-section">
-        <MapComponent city={currentCity} offers={offers} activeOffer={activeOffer}/>
+        {offers.length > 0 && <MapComponent className='cities__map' city={currentCity} offers={offers} activeOffer={activeOffer}/>}
       </div>
     </div>
   );
