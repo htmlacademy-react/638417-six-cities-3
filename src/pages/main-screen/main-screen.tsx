@@ -2,22 +2,24 @@ import { useEffect, useMemo, useState } from 'react';
 import CardList from '../../components/card-list/card-list';
 import { TOffer } from '../../types/offers';
 import { groupOffersByCity } from '../../helpers';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setCity } from '../../store/actions';
 
-type MainScreenProps = {
-  offers: TOffer[];
-}
 
-function MainScreen({offers}: MainScreenProps): JSX.Element {
-  const [curentCity, setCurentCity] = useState('Amsterdam');
+function MainScreen(): JSX.Element {
   const [curentOffers, setCurentOffers] = useState<TOffer[]>([]);
+
+  const offers = useAppSelector((state) => state.offers);
+  const curentCity = useAppSelector((state) => state.city);
 
   const offersByCities = useMemo(() => groupOffersByCity(offers), [offers]);
   const cityList = offersByCities.map((c)=>c.city);
 
-  const handleCitySelect = (city: string) => {
-    setCurentCity(city);
-  };
+  const dispatch = useAppDispatch();
 
+  const handleCitySelect = (city: string) => {
+    dispatch(setCity(city));
+  };
 
   useEffect(() => {
     const cityData = offersByCities.find((o) => o.city === curentCity);
