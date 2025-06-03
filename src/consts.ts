@@ -25,3 +25,5 @@ export const URL_MARKER_DEFAULT = './img/pin.svg';
 export const URL_MARKER_CURRENT = './img/pin-active.svg';
 
 export const DATE_LOCATION = 'en-US';
+
+export const AFTER_INIT_CITY = 'Paris';
