@@ -1,4 +1,4 @@
-import { AFTER_INIT_CITY, AppRoute } from '../../consts';
+import { AppRoute } from '../../consts';
 import { HelmetProvider } from 'react-helmet-async';
 import EmptyScreen from '../../pages/empty-screen/empty-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
@@ -11,8 +11,9 @@ import Layout from '../layout/layout';
 import { getAuthorizationStatus } from '../../helpers';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { TReviews } from '../../types/reviews';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCity } from '../../store/actions';
+import { useAppSelector } from '../../hooks';
+
+import useInitCity from '../../hooks/use-init-city';
 
 type AppScreenProps = {
   reviews: TReviews[];
@@ -23,9 +24,7 @@ function App({ reviews }: AppScreenProps): JSX.Element {
 
   const offers = useAppSelector((state) => state.offers);
 
-  const dispatch = useAppDispatch();
-
-  dispatch(setCity(AFTER_INIT_CITY));
+  useInitCity();
 
   return (
     <HelmetProvider>
