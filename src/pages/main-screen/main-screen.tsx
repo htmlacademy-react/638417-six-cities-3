@@ -10,7 +10,7 @@ function MainScreen(): JSX.Element {
   const [curentOffers, setCurentOffers] = useState<TOffer[]>([]);
 
   const offers = useAppSelector((state) => state.offers);
-  const curentCity = useAppSelector((state) => state.city);
+  const curentCity = useAppSelector((state) => state.filter.city);
 
   const offersByCities = useMemo(() => groupOffersByCity(offers), [offers]);
   const cityList = offersByCities.map((c)=>c.city);
