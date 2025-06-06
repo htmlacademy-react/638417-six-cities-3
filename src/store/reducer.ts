@@ -1,18 +1,31 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setCity, setOffers } from './actions';
+import { setCity, setOffers, setSort } from './actions';
 import { offers } from '../mocks/offers';
-import { TStateFilterData } from '../types/state';
 
+import { TOffer } from '../types/offers';
+import { TStateFilter } from '../types/state';
+import { SortType } from '../consts';
 
-const initialState: TStateFilterData = {
-  city: offers[0].city.name,
+type TinitialAtate = {
+  filter: TStateFilter;
+  offers: TOffer [];
+}
+
+const initialState: TinitialAtate = {
+  filter: {
+    city: '',
+    sort: SortType.Popular
+  },
   offers: offers
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(setCity, (state, action) => {
-      state.city = action.payload;
+      state.filter.city = action.payload;
+    })
+    .addCase(setSort, (state, action) => {
+      state.filter.sort = action.payload;
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
