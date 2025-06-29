@@ -1,6 +1,10 @@
+import { offersReducer } from './slices/offers';
 import { configureStore } from '@reduxjs/toolkit';
-import { reducer } from './reducer';
+import { filterReducer } from './reducer';
 
 export const store = configureStore({
-  reducer
+  reducer: {
+    offers: offersReducer,
+    filter: filterReducer
+  }
 });
