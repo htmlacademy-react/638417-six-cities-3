@@ -2,9 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { offers as mockOffers} from '../../mocks/offers';
 import { TOffer } from '../../types/offers';
 
-export type TInitialState = TOffer[];
+type TOffersInitialState = TOffer[];
 
-const initialState: TInitialState = mockOffers;
+const initialState: TOffersInitialState = mockOffers;
 
 const offersSlice = createSlice({
   name: 'offers',

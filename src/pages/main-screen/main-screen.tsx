@@ -3,8 +3,8 @@ import CardList from '../../components/card-list/card-list';
 import { TOffer } from '../../types/offers';
 import { groupOffersByCity } from '../../helpers';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCity } from '../../store/actions';
 import { SortType } from '../../consts';
+import { setCity } from '../../store/slices/filter';
 
 
 function MainScreen(): JSX.Element {
