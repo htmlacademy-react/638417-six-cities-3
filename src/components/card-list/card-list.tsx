@@ -4,6 +4,9 @@ import Card from '../card/card';
 import { Nullable } from 'vitest';
 import MapComponent from '../map-component/map-component';
 import Sort from '../sort/sort';
+import { useAppSelector } from '../../hooks';
+import Spiner from '../spiner/spiner';
+import { RequestStatus } from '../../consts';
 
 type CardListProps = {
   offers: TOffer[];
@@ -11,6 +14,8 @@ type CardListProps = {
 
 function CardList({offers}: CardListProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
+
+  const loading = useAppSelector((state) => state.offers.status);
 
   const handleHover = (offer?: TOffer) => {
     setActiveOffer(offer || null);
@@ -25,11 +30,11 @@ function CardList({offers}: CardListProps): JSX.Element {
         <b className="places__found">{offers.length} places to stay in {currentCity?.name}</b>
         <Sort />
         <div className="cities__places-list places__list tabs__content">
-          {offers.length
-            ? (
-              offers.map((o)=><Card key={o.id} offer={o} handleHover={handleHover}/>)
-            )
-            : 'No data'}
+          {loading === RequestStatus.Loading && <Spiner />}
+          {offers.length > 0 && offers.map((o) => (
+            <Card key={o.id} offer={o} handleHover={handleHover} />
+          ))}
+          {loading === RequestStatus.Success && offers.length === 0 && 'No data'}
         </div>
       </section>
       <div className="cities__right-section">
