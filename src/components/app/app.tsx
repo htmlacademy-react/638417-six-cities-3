@@ -11,9 +11,11 @@ import Layout from '../layout/layout';
 import { getAuthorizationStatus } from '../../helpers';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import { TReviews } from '../../types/reviews';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import useInitCity from '../../hooks/use-init-city';
+import { useEffect } from 'react';
+import { fetchAllOffers } from '../../store/thunks/offers';
 
 type AppScreenProps = {
   reviews: TReviews[];
@@ -22,9 +24,15 @@ type AppScreenProps = {
 function App({ reviews }: AppScreenProps): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
 
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.offers.offers);
+
+  const dispatch = useAppDispatch();
 
   useInitCity();
+
+  useEffect(()=>{
+    dispatch(fetchAllOffers());
+  },[dispatch]);
 
   return (
     <HelmetProvider>

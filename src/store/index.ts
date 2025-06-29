@@ -1,13 +1,18 @@
-import { createAPI as api } from '../services/api';
-import { filterReducer } from './slices/filter';
-import { offersReducer } from './slices/offers';
-import { configureStore } from '@reduxjs/toolkit';
+import { createAPI } from '../services/api';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
+import filterSlice from './slices/filter';
+import offersSlice from './slices/offers';
+
+export const api = createAPI();
+
+const reducer = combineReducers({
+  [offersSlice.name]: offersSlice.reducer,
+  [filterSlice.name]: filterSlice.reducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    offers: offersReducer,
-    filter: filterReducer
-  },
+  reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: {
