@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { setSort } from '../../store/actions';
 import { SortType } from '../../consts';
+import { setSort } from '../../store/slices/filter';
 
 function Sort(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);

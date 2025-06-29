@@ -34,3 +34,13 @@ export enum SortType {
   PriceHighToLow = 'Price: high to low',
   TopRatedFirst = 'Top rated first',
 }
+
+export const enum RequestStatus { Idle, Loading, Success, Failed }
+
+export enum Endpoint {
+  Comments = '/comments',
+  Favorite = '/favorite',
+  Login = '/login',
+  Logout = '/logout',
+  Offers = '/offers',
+}

@@ -8,6 +8,7 @@ type OfferScreenProps = {
 function Host({host, description}: OfferScreenProps): JSX.Element {
 
   const {name, avatarUrl, isPro} = host;
+
   return (
     <div className="offer__host">
       <h2 className="offer__host-title">Meet the host</h2>

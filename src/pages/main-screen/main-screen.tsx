@@ -3,14 +3,15 @@ import CardList from '../../components/card-list/card-list';
 import { TOffer } from '../../types/offers';
 import { groupOffersByCity } from '../../helpers';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setCity } from '../../store/actions';
 import { SortType } from '../../consts';
+import { setCity } from '../../store/slices/filter';
 
 
 function MainScreen(): JSX.Element {
   const [curentOffers, setCurentOffers] = useState<TOffer[]>([]);
 
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.offers.offers);
+
   const curentCity = useAppSelector((state) => state.filter.city);
   const curentSort = useAppSelector((state) => state.filter.sort);
 
