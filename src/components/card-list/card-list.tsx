@@ -12,16 +12,20 @@ type CardListProps = {
   offers: TOffer[];
 }
 
-function CardList({offers}: CardListProps): JSX.Element {
+function CardList({ offers }: CardListProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
-
-  const loading = useAppSelector((state) => state.offers.status);
 
   const handleHover = (offer?: TOffer) => {
     setActiveOffer(offer || null);
   };
 
+  const status = useAppSelector((state) => state.offers.status);
+
   const currentCity = offers[0]?.city;
+
+  if (status === RequestStatus.Loading || status === RequestStatus.Idle) {
+    return <Spiner />;
+  }
 
   return (
     <div className="cities__places-container container">
@@ -30,15 +34,15 @@ function CardList({offers}: CardListProps): JSX.Element {
         <b className="places__found">{offers.length} places to stay in {currentCity?.name}</b>
         <Sort />
         <div className="cities__places-list places__list tabs__content">
-          {loading === RequestStatus.Loading && <Spiner />}
-          {offers.length > 0 && offers.map((o) => (
-            <Card key={o.id} offer={o} handleHover={handleHover} />
-          ))}
-          {loading === RequestStatus.Success && offers.length === 0 && 'No data'}
+          {offers.length
+            ? (
+              offers.map((o) => <Card key={o.id} offer={o} handleHover={handleHover} />)
+            )
+            : 'No data'}
         </div>
       </section>
       <div className="cities__right-section">
-        {offers.length > 0 && <MapComponent className='cities__map' city={currentCity} offers={offers} activeOffer={activeOffer}/>}
+        {offers.length > 0 && <MapComponent className='cities__map' city={currentCity} offers={offers} activeOffer={activeOffer} />}
       </div>
     </div>
   );
