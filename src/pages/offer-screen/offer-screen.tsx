@@ -33,6 +33,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
   }
 
   const { title, images, isPremium, rating, type, bedrooms, maxAdults, price, goods, host, description, isFavorite } = currentOffer;
+
   const bedroomsTitle = bedrooms > 1 ? 'Bedrooms' : 'Bedroom';
   const adultsTitle = maxAdults > 1 ? 'adults' : 'adult';
 
@@ -45,7 +46,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {images.length && (
+              {images && images.length && (
                 images.map((i) => (
                   <div className="offer__image-wrapper" key={i}>
                     <img
@@ -95,7 +96,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
                 <b className="offer__price-value">{`€${price}`}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
-              {goods.length && (
+              {goods && goods.length && (
                 <div className="offer__inside">
                   <h2 className="offer__inside-title">What`s inside</h2>
                   <ul className="offer__inside-list">
@@ -103,8 +104,8 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
                   </ul>
                 </div>
               )}
-              <Host host={host} description={description} />
-              <Reviews reviews={reviews} />
+              {host && <Host host={host} description={description} />}
+              {reviews && <Reviews reviews={reviews} />}
             </div>
           </div>
           {offers.length > 0 && <MapComponent className='offer__map' city={currentCity} offers={[offers[0], offers[1], offers[2]]} activeOffer={activeOffer} />}

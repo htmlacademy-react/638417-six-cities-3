@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from './';
-import { setCity } from '../store/actions';
 import { AFTER_INIT_CITY } from '../consts';
+import { setCity } from '../store/slices/filter';
 
 const useInitCity = () => {
   const dispatch = useAppDispatch();
