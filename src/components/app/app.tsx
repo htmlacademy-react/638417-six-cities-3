@@ -17,6 +17,12 @@ import useInitCity from '../../hooks/use-init-city';
 import { useEffect } from 'react';
 import { fetchAllOffers } from '../../store/thunks/offers';
 
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ErrorToastHandler from '../toast/toast';
+
 type AppScreenProps = {
   reviews: TReviews[];
 }
@@ -73,6 +79,8 @@ function App({ reviews }: AppScreenProps): JSX.Element {
             />
           </Route>
         </Routes>
+        <ToastContainer />
+        <ErrorToastHandler />
       </BrowserRouter>
     </HelmetProvider>
   );

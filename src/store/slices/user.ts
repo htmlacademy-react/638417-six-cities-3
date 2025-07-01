@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../consts';
 
 export type TUserInitialState = {
- authorizationStatus: AuthorizationStatus;
+  authorizationStatus: AuthorizationStatus;
+  error: string | null;
 }
 
 const initialState: TUserInitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
 
 const userSlice = createSlice({
