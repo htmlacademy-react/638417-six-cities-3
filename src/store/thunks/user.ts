@@ -2,6 +2,7 @@ import type { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoint } from '../../consts';
 import { TUserData, TUserAuthData } from '../../types/user';
+import { dropToken, saveToken } from '../../services/token';
 
 const checkAuth = createAsyncThunk<TUserData, void, { extra: AxiosInstance }>('user/checkAuth', async (_arg, { extra: api }) => {
   const response = await api.get<TUserData>(Endpoint.Login);
@@ -11,12 +12,14 @@ const checkAuth = createAsyncThunk<TUserData, void, { extra: AxiosInstance }>('u
 
 const login = createAsyncThunk<TUserData, TUserAuthData, { extra: AxiosInstance }>('user/login', async (body, { extra: api }) => {
   const response = await api.post<TUserData>(Endpoint.Login, body);
+  saveToken(response.data.token);
   return response.data;
 },
 );
 
 const logout = createAsyncThunk<unknown, void, { extra: AxiosInstance }>('user/logout', async (_arg, { extra: api }) => {
   await api.post<TUserData>(Endpoint.Logout);
+  dropToken();
 },
 );
 
