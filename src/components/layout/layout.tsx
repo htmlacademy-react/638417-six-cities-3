@@ -1,12 +1,13 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts';
-import { getAuthorizationStatus, getLayoutState } from '../../helpers';
+import { getLayoutState } from '../../helpers';
+import { useAppSelector } from '../../hooks';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
 
   const { rootClassName , linkCalssName, isRenderUser, isRenderfooter } = getLayoutState(pathname as AppRoute);
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   return (
     <div className={`page ${rootClassName }`}>

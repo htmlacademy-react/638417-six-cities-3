@@ -1,8 +1,6 @@
-import { AppRoute, AuthorizationStatus } from './consts';
+import { AppRoute } from './consts';
 import { GroupedOffer, TReviewDate } from './types/helpers';
 import { TOffer } from './types/offers';
-
-export const getAuthorizationStatus = () => AuthorizationStatus.Auth;
 
 export const getLayoutState = (pathName: AppRoute) => {
   let rootClassName = '';

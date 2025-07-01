@@ -1,14 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../consts';
+import { checkAuth, login, logout } from '../thunks/user';
+import { TUserData } from '../../types/user';
 
 export type TUserInitialState = {
   authorizationStatus: AuthorizationStatus;
   error: string | null;
-}
+  user: TUserData | null;
+};
 
 const initialState: TUserInitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
+  user: null,
 };
 
 const userSlice = createSlice({
@@ -17,8 +21,38 @@ const userSlice = createSlice({
   reducers: {
     setAuthorization(state, action: PayloadAction<AuthorizationStatus>) {
       state.authorizationStatus = action.payload;
-    }
-  }
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // checkAuth
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.user = action.payload;
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+      })
+
+      // login
+      .addCase(login.fulfilled, (state, action) => {
+        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.user = action.payload;
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.error = action.error.message ?? 'Login failed';
+      })
+
+      // logout
+      .addCase(logout.fulfilled, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.user = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.error = action.error.message ?? 'Logout failed';
+      });
+  },
 });
 
 export const { setAuthorization } = userSlice.actions;
