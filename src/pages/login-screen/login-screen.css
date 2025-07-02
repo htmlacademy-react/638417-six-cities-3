@@ -1,0 +1,17 @@
+.input-error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+.form__input-wrapper.has-error .input-error {
+  display: block;
+}
+
+.form__input-wrapper.has-error input {
+  border-color: #d32f2f;
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(211, 47, 47, 0.5);
+}

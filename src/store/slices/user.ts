@@ -41,7 +41,23 @@ const userSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
-        state.error = action.error.message ?? 'Login failed';
+
+        if (action.payload && typeof action.payload === 'object') {
+          const payload = action.payload as {
+            emailError?: string;
+            passwordError?: string;
+            message?: string;
+          };
+
+          const errorMessages = [
+            payload.emailError,
+            payload.passwordError
+          ].filter(Boolean).join('\n');
+
+          state.error = errorMessages || payload.message || 'Login failed';
+        } else {
+          state.error = action.error.message ?? 'Login failed';
+        }
       })
 
       // logout

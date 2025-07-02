@@ -1,13 +1,25 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts';
 import { getLayoutState } from '../../helpers';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { MouseEventHandler } from 'react';
+import { logout } from '../../store/thunks/user';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
 
   const { rootClassName , linkCalssName, isRenderUser, isRenderfooter } = getLayoutState(pathname as AppRoute);
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
+  const user = useAppSelector((state) => state.user.user);
+
+  const dispatch = useAppDispatch();
+
+  type THandleChange = MouseEventHandler<HTMLAnchorElement>
+
+  const handleSignOut: THandleChange = (evt) => {
+    evt.preventDefault();
+    dispatch(logout());
+  };
 
   return (
     <div className={`page ${rootClassName }`}>
@@ -44,11 +56,13 @@ function Layout(): JSX.Element {
                         className="header__nav-link header__nav-link--profile"
                         to={AppRoute.Favorites}
                       >
-                        <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                          {user?.avatarUrl && <img src={user?.avatarUrl} style={{borderRadius: '50%'}} />}
+                        </div>
                         {authorizationStatus === AuthorizationStatus.Auth ? (
                           <>
                             <span className="header__user-name user__name">
-                        Oliver.conner@gmail.com
+                              {user?.email}
                             </span>
                             <span className="header__favorite-count">3</span>
                           </>
@@ -58,7 +72,7 @@ function Layout(): JSX.Element {
                     </li>
                     {authorizationStatus === AuthorizationStatus.Auth ? (
                       <li className="header__nav-item">
-                        <a className="header__nav-link" href="#">
+                        <a className="header__nav-link" href="#" onClick={handleSignOut}>
                           <span className="header__signout">Sign out</span>
                         </a>
                       </li>

@@ -30,15 +30,14 @@ type AppScreenProps = {
 function App({ reviews }: AppScreenProps): JSX.Element {
 
   const offers = useAppSelector((state) => state.offers.offers);
-  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   const dispatch = useAppDispatch();
 
   useInitCity();
 
   useEffect(()=>{
-    dispatch(fetchAllOffers());
     dispatch(checkAuth());
+    dispatch(fetchAllOffers());
   },[dispatch]);
 
 
@@ -58,7 +57,7 @@ function App({ reviews }: AppScreenProps): JSX.Element {
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute authorizationStatus={authorizationStatus} isReverse>
+                <PrivateRoute isReverse>
                   <LoginScreen />
                 </PrivateRoute>
               }
@@ -66,7 +65,7 @@ function App({ reviews }: AppScreenProps): JSX.Element {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute authorizationStatus={authorizationStatus}>
+                <PrivateRoute >
                   <FavoritesScreen offers={offers} />
                 </PrivateRoute>
               }

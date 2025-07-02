@@ -52,3 +52,41 @@ export function formatDateForTimeTag(rawDate : string, locale:string): TReviewDa
   });
   return { dateTime, dateTextContent };
 }
+
+type TValidationDetail = {
+  property: string;
+  value: string;
+  messages: string[];
+};
+
+type TFieldErrors = {
+  emailError?: string;
+  passwordError?: string;
+};
+
+export function extractFieldErrors(details: TValidationDetail[]): TFieldErrors {
+  const errors: TFieldErrors = {};
+
+  for (const detail of details) {
+    if (detail.property === 'email') {
+      errors.emailError = detail.messages.join('. ');
+    }
+    if (detail.property === 'password') {
+      errors.passwordError = detail.messages.join('. ');
+    }
+  }
+
+  return errors;
+}
+
+
+export function combineErrors(errors: TFieldErrors): string {
+  const parts = [];
+  if (errors.emailError) {
+    parts.push(errors.emailError);
+  }
+  if (errors.passwordError) {
+    parts.push(errors.passwordError);
+  }
+  return parts.join('\n\n');
+}
