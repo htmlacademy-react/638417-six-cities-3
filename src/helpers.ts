@@ -1,8 +1,6 @@
-import { AppRoute, AuthorizationStatus } from './consts';
+import { AppRoute } from './consts';
 import { GroupedOffer, TReviewDate } from './types/helpers';
 import { TOffer } from './types/offers';
-
-export const getAuthorizationStatus = () => AuthorizationStatus.Auth;
 
 export const getLayoutState = (pathName: AppRoute) => {
   let rootClassName = '';
@@ -53,4 +51,42 @@ export function formatDateForTimeTag(rawDate : string, locale:string): TReviewDa
     year: 'numeric',
   });
   return { dateTime, dateTextContent };
+}
+
+type TValidationDetail = {
+  property: string;
+  value: string;
+  messages: string[];
+};
+
+type TFieldErrors = {
+  emailError?: string;
+  passwordError?: string;
+};
+
+export function extractFieldErrors(details: TValidationDetail[]): TFieldErrors {
+  const errors: TFieldErrors = {};
+
+  for (const detail of details) {
+    if (detail.property === 'email') {
+      errors.emailError = detail.messages.join('. ');
+    }
+    if (detail.property === 'password') {
+      errors.passwordError = detail.messages.join('. ');
+    }
+  }
+
+  return errors;
+}
+
+
+export function combineErrors(errors: TFieldErrors): string {
+  const parts = [];
+  if (errors.emailError) {
+    parts.push(errors.emailError);
+  }
+  if (errors.passwordError) {
+    parts.push(errors.passwordError);
+  }
+  return parts.join('\n\n');
 }

@@ -16,6 +16,13 @@ const initialState: TOffersInitialState = {
 };
 
 const offersSlice = createSlice({
+  name: 'offers',
+  initialState,
+  reducers: {
+    setOffers(state, action: PayloadAction<TOffer[]>) {
+      state.offers = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllOffers.pending, (state) => {
@@ -30,13 +37,6 @@ const offersSlice = createSlice({
         state.status = RequestStatus.Failed;
         state.error = action.error.message ?? 'Oops, something went wrong';
       });
-  },
-  name: 'offers',
-  initialState,
-  reducers: {
-    setOffers(state, action: PayloadAction<TOffer[]>) {
-      state.offers = action.payload;
-    }
   }
 });
 
