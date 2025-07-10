@@ -3,13 +3,13 @@ import { TOffer } from '../../types/offers';
 import { RequestStatus } from '../../consts';
 import { fetchAllOffers } from '../thunks/offers';
 
-type TOffersInitialState = {
+type TAllOffersInitialState = {
   offers: TOffer[];
   status: RequestStatus;
   error: string | null;
 };
 
-const initialState: TOffersInitialState = {
+const initialState: TAllOffersInitialState = {
   offers: [],
   status: RequestStatus.Idle,
   error: null,
