@@ -5,7 +5,6 @@ import EmptyScreen from '../empty-screen/empty-screen';
 import Host from '../../components/host/host';
 import { Helmet } from 'react-helmet-async';
 import Reviews from '../../components/reviews/reviews';
-import { TReviews } from '../../types/reviews';
 import MapComponent from '../../components/map-component/map-component';
 import { useEffect, useState } from 'react';
 import { Nullable } from 'vitest';
@@ -13,13 +12,11 @@ import Card from '../../components/card/card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOffer, fetchOfferNearby } from '../../store/thunks/offer';
 import { selectOffer, selectOfferNearby, selectOfferStatus } from '../../store/slices/offer';
+import { fetchOfferComments } from '../../store/thunks/comments';
+import { selectComments } from '../../store/slices/comments';
 
-type OfferScreenProps = {
-  offers: TOffer[];
-  reviews: TReviews[];
-}
 
-function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
 
   const { id } = useParams();
@@ -29,6 +26,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
   const currentOffer = useAppSelector(selectOffer);
   const currentOfferNearby = useAppSelector(selectOfferNearby);
   const currentOfferStatus = useAppSelector(selectOfferStatus);
+  const reviews = useAppSelector(selectComments);
   const currentCity = currentOffer?.city;
 
   const handleHover = (offer?: TOffer) => {
@@ -39,6 +37,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
     if(id) {
       dispatch(fetchOffer(id));
       dispatch(fetchOfferNearby(id));
+      dispatch(fetchOfferComments(id));
     }
   },[dispatch, id]);
 
@@ -133,7 +132,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
               {reviews && <Reviews reviews={reviews} />}
             </div>
           </div>
-          {(offers.length > 0 && currentCity) && <MapComponent className='offer__map' city={currentCity} offers={currentOfferNearby} activeOffer={activeOffer} />}
+          {(currentOfferNearby.length > 0 && currentCity) && <MapComponent className='offer__map' city={currentCity} offers={currentOfferNearby} activeOffer={activeOffer} />}
         </section>
         <div className="container">
           <section className="near-places places">

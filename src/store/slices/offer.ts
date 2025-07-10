@@ -56,4 +56,5 @@ const offerSlice = createSlice({
 export const selectOffer = (state: RootState) => state.offer.info;
 export const selectOfferNearby = (state: RootState) => state.offer.nearby;
 export const selectOfferStatus = (state: RootState) => state.offer.status;
+export const selectOfferError = (state: RootState) => state.offer.error;
 export default offerSlice;

@@ -1,16 +1,17 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { TOffer } from '../../types/offers';
 import { RequestStatus } from '../../consts';
 import { fetchAllOffers } from '../thunks/offers';
+import { RootState } from '../../types/state';
 
 type TAllOffersInitialState = {
-  offers: TOffer[];
+  info: TOffer[];
   status: RequestStatus;
   error: string | null;
 };
 
 const initialState: TAllOffersInitialState = {
-  offers: [],
+  info: [],
   status: RequestStatus.Idle,
   error: null,
 };
@@ -18,11 +19,7 @@ const initialState: TAllOffersInitialState = {
 const offersSlice = createSlice({
   name: 'offers',
   initialState,
-  reducers: {
-    setOffers(state, action: PayloadAction<TOffer[]>) {
-      state.offers = action.payload;
-    }
-  },
+  reducers: { },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllOffers.pending, (state) => {
@@ -31,7 +28,7 @@ const offersSlice = createSlice({
       })
       .addCase(fetchAllOffers.fulfilled, (state, action) => {
         state.status = RequestStatus.Success;
-        state.offers = action.payload;
+        state.info = action.payload;
       })
       .addCase(fetchAllOffers.rejected, (state, action) => {
         state.status = RequestStatus.Failed;
@@ -40,5 +37,8 @@ const offersSlice = createSlice({
   }
 });
 
-export const { setOffers } = offersSlice.actions;
+export const selectOffers = (state: RootState) => state.offers.info;
+export const selectOffersStatus = (state: RootState) => state.offers.status;
+export const selectOffersError = (state: RootState) => state.offers.error;
+
 export default offersSlice;
