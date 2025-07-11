@@ -1,9 +1,10 @@
 import type { AxiosError, AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Endpoint } from '../../consts';
-import { TUserData, TUserAuthData, TValidationErrorResponse } from '../../types/user';
+import { TUserData, TUserAuthData } from '../../types/user';
 import { dropToken, saveToken } from '../../services/token';
 import { extractFieldErrors } from '../../helpers';
+import { TValidationErrorResponse } from '../../types/validarion';
 
 const checkAuth = createAsyncThunk<TUserData, void, { extra: AxiosInstance }>('user/checkAuth', async (_arg, { extra: api }) => {
   const response = await api.get<TUserData>(Endpoint.Login);

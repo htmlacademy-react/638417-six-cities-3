@@ -1,11 +1,11 @@
 import { AuthorizationStatus } from '../../consts';
 import { useAppSelector } from '../../hooks';
-import { TReviews } from '../../types/reviews';
+import { TReview } from '../../types/reviews';
 import ReviewCard from '../review-card/review-card';
 import ReviewsForm from '../reviews-form/reviews-form';
 
 type ReviewsProps = {
-    reviews: TReviews[];
+    reviews: TReview[];
 }
 
 function Reviews({reviews}: ReviewsProps): JSX.Element {

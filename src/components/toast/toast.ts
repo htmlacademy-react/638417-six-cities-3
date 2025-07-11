@@ -4,12 +4,10 @@ import { toast } from 'react-toastify';
 import { selectOfferError } from '../../store/slices/offer';
 import { selectOffersError } from '../../store/slices/offers';
 import { selectUserError } from '../../store/slices/user';
-import { selectCommentsError } from '../../store/slices/comments';
 
 function ErrorToastHandler() {
   const offersError = useAppSelector(selectOffersError);
   const offerError = useAppSelector(selectOfferError);
-  const commentError = useAppSelector(selectCommentsError);
   const userError = useAppSelector(selectUserError);
 
   const lastErrorsRef = useRef<Record<string, boolean>>({});
@@ -18,7 +16,6 @@ function ErrorToastHandler() {
     const errors = {
       offersError,
       offerError,
-      commentError,
       userError,
     };
 
@@ -32,7 +29,7 @@ function ErrorToastHandler() {
         lastErrorsRef.current[key] = false;
       }
     });
-  }, [offersError, offerError, commentError, userError]);
+  }, [offersError, offerError, userError]);
 
   return null;
 }
