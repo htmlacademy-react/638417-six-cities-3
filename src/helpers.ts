@@ -62,6 +62,8 @@ type TValidationDetail = {
 type TFieldErrors = {
   emailError?: string;
   passwordError?: string;
+  ratingError?: string;
+  commentError?: string;
 };
 
 export function extractFieldErrors(details: TValidationDetail[]): TFieldErrors {
@@ -73,6 +75,12 @@ export function extractFieldErrors(details: TValidationDetail[]): TFieldErrors {
     }
     if (detail.property === 'password') {
       errors.passwordError = detail.messages.join('. ');
+    }
+    if (detail.property === 'rating') {
+      errors.ratingError = detail.messages.join('. ');
+    }
+    if (detail.property === 'comment') {
+      errors.commentError = detail.messages.join('. ');
     }
   }
 

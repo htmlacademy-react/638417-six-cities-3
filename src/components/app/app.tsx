@@ -9,7 +9,6 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { TReviews } from '../../types/reviews';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import useInitCity from '../../hooks/use-init-city';
@@ -22,15 +21,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ErrorToastHandler from '../toast/toast';
 import { checkAuth } from '../../store/thunks/user';
+import { selectOffers } from '../../store/slices/offers';
 
-type AppScreenProps = {
-  reviews: TReviews[];
-}
+function App(): JSX.Element {
 
-function App({ reviews }: AppScreenProps): JSX.Element {
-
-  const offers = useAppSelector((state) => state.offers.offers);
-
+  const offers = useAppSelector(selectOffers);
   const dispatch = useAppDispatch();
 
   useInitCity();
@@ -72,7 +67,7 @@ function App({ reviews }: AppScreenProps): JSX.Element {
             />
             <Route
               path={`${AppRoute.Offer}/:id`}
-              element={<OfferScreen offers={offers} reviews={reviews} />}
+              element={<OfferScreen />}
             />
             <Route
               path="*"

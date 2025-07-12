@@ -1,32 +1,53 @@
 import { useParams } from 'react-router-dom';
-import { RATING_MAX } from '../../consts';
+import { RATING_MAX, RequestStatus } from '../../consts';
 import { TOffer } from '../../types/offers';
 import EmptyScreen from '../empty-screen/empty-screen';
 import Host from '../../components/host/host';
 import { Helmet } from 'react-helmet-async';
 import Reviews from '../../components/reviews/reviews';
-import { TReviews } from '../../types/reviews';
 import MapComponent from '../../components/map-component/map-component';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Nullable } from 'vitest';
 import Card from '../../components/card/card';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchOffer, fetchOfferNearby } from '../../store/thunks/offer';
+import { selectOffer, selectOfferNearby, selectOfferStatus } from '../../store/slices/offer';
+import { selectComments } from '../../store/slices/offers';
+import { fetchOfferComments } from '../../store/thunks/comments';
 
-type OfferScreenProps = {
-  offers: TOffer[];
-  reviews: TReviews[];
-}
 
-function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
 
   const { id } = useParams();
 
-  const currentOffer: TOffer | undefined = offers.find((o: TOffer) => o.id === id);
-  const currentCity = offers[0]?.city;
+  const dispatch = useAppDispatch();
+
+  const currentOffer = useAppSelector(selectOffer);
+  const currentOfferNearby = useAppSelector(selectOfferNearby);
+  const currentOfferStatus = useAppSelector(selectOfferStatus);
+  const reviews = useAppSelector(selectComments);
+  const currentCity = currentOffer?.city;
 
   const handleHover = (offer?: TOffer) => {
     setActiveOffer(offer || null);
   };
+
+  useEffect(()=>{
+    if(id) {
+      dispatch(fetchOffer(id));
+      dispatch(fetchOfferNearby(id));
+      dispatch(fetchOfferComments(id));
+    }
+  },[dispatch, id]);
+
+  if (currentOfferStatus === RequestStatus.Loading) {
+    return <>Loading</>;
+  }
+
+  if (currentOfferStatus === RequestStatus.Failed) {
+    return <EmptyScreen type="offer" />;
+  }
 
   if (!currentOffer) {
     return <EmptyScreen type="offer" />;
@@ -69,7 +90,10 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <button className={`offer__bookmark-button button ${isFavorite && 'offer__bookmark-button--active'}`} type="button">
+                <button
+                  className={`offer__bookmark-button button ${isFavorite ? 'offer__bookmark-button--active' : ''}`}
+                  type="button"
+                >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -108,7 +132,7 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
               {reviews && <Reviews reviews={reviews} />}
             </div>
           </div>
-          {offers.length > 0 && <MapComponent className='offer__map' city={currentCity} offers={[offers[0], offers[1], offers[2]]} activeOffer={activeOffer} />}
+          {(currentOfferNearby.length > 0 && currentCity) && <MapComponent className='offer__map' city={currentCity} offers={currentOfferNearby} activeOffer={activeOffer} />}
         </section>
         <div className="container">
           <section className="near-places places">
@@ -116,11 +140,11 @@ function OfferScreen({ offers, reviews }: OfferScreenProps): JSX.Element {
               Other places in the neighbourhood
             </h2>
             <div className="near-places__list places__list">
-              {offers.length
+              {currentOfferNearby.length
                 ? (
-                  [offers[0], offers[1], offers[2]].map((o)=><Card nearPlaces key={o.id} offer={o} handleHover={handleHover}/>)
+                  currentOfferNearby.map((o)=><Card nearPlaces key={o.id} offer={o} handleHover={handleHover}/>)
                 )
-                : 'No data'}
+                : 'No nearby places found'}
             </div>
           </section>
         </div>

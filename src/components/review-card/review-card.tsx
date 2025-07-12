@@ -1,9 +1,9 @@
 import { DATE_LOCATION, RATING_MAX } from '../../consts';
 import { formatDateForTimeTag } from '../../helpers';
-import { TReviews } from '../../types/reviews';
+import { TReview } from '../../types/reviews';
 
 type ReviewsProps = {
-  review: TReviews;
+  review: TReview;
 }
 
 function ReviewCard({ review }: ReviewsProps): JSX.Element {
@@ -12,7 +12,7 @@ function ReviewCard({ review }: ReviewsProps): JSX.Element {
   return (
 
     <li className="reviews__item">
-      <div className="reviews__user user">
+      <div className="reviews__user user" style={{minWidth: 'fit-content'}}>
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img
             className="reviews__avatar user__avatar"

@@ -10,7 +10,7 @@ import { setCity } from '../../store/slices/filter';
 function MainScreen(): JSX.Element {
   const [curentOffers, setCurentOffers] = useState<TOffer[]>([]);
 
-  const offers = useAppSelector((state) => state.offers.offers);
+  const offers = useAppSelector((state) => state.offers.info);
 
   const curentCity = useAppSelector((state) => state.filter.city);
   const curentSort = useAppSelector((state) => state.filter.sort);
