@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { TOffer } from '../../types/offers';
 import Card from '../card/card';
 import { Nullable } from 'vitest';
@@ -15,9 +15,10 @@ type CardListProps = {
 function CardList({ offers }: CardListProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
 
-  const handleHover = (offer?: TOffer) => {
+  const handleHover = useCallback((offer?: TOffer) => {
     setActiveOffer(offer || null);
-  };
+  }, [setActiveOffer]);
+
 
   const status = useAppSelector((state) => state.offers.status);
 
