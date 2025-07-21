@@ -6,7 +6,7 @@ import Host from '../../components/host/host';
 import { Helmet } from 'react-helmet-async';
 import Reviews from '../../components/reviews/reviews';
 import MapComponent from '../../components/map-component/map-component';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Nullable } from 'vitest';
 import Card from '../../components/card/card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -29,9 +29,9 @@ function OfferScreen(): JSX.Element {
   const reviews = useAppSelector(selectComments);
   const currentCity = currentOffer?.city;
 
-  const handleHover = (offer?: TOffer) => {
+  const handleHover = useCallback((offer?: TOffer) => {
     setActiveOffer(offer || null);
-  };
+  },[]);
 
   useEffect(()=>{
     if(id) {

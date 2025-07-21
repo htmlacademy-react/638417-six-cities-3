@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { TUser } from '../../types/offers';
 
 type OfferScreenProps = {
@@ -35,4 +36,5 @@ function Host({host, description}: OfferScreenProps): JSX.Element {
   );
 }
 
-export default Host;
+const MemoHost = memo(Host);
+export default MemoHost;

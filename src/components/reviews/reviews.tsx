@@ -27,5 +27,4 @@ function Reviews({reviews}: ReviewsProps): JSX.Element {
   );
 }
 
-
 export default Reviews;
