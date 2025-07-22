@@ -21,7 +21,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ErrorToastHandler from '../toast/toast';
 import { checkAuth } from '../../store/thunks/user';
-import { selectOffers } from '../../store/slices/offers';
+import { selectOffers } from '../../store/selectors/offers';
 
 function App(): JSX.Element {
 

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { SortType } from '../../consts';
 import { setSort } from '../../store/slices/filter';
@@ -61,4 +61,5 @@ function Sort(): JSX.Element {
   );
 }
 
-export default Sort;
+const MemoSort = memo(Sort);
+export default MemoSort;

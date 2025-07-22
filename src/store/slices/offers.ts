@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TOffer } from '../../types/offers';
 import { RequestStatus } from '../../consts';
 import { fetchAllOffers } from '../thunks/offers';
-import { RootState } from '../../types/state';
 import { TReview } from '../../types/reviews';
 import { fetchOfferComments, postOfferComments } from '../thunks/comments';
 
@@ -79,10 +78,5 @@ const offersSlice = createSlice({
       });
   }
 });
-
-export const selectOffers = (state: RootState) => state.offers.info;
-export const selectComments = (state: RootState) => state.offers.comments;
-export const selectOffersStatus = (state: RootState) => state.offers.status;
-export const selectOffersError = (state: RootState) => state.offers.error;
 
 export default offersSlice;

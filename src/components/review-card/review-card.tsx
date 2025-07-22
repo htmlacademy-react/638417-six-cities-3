@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { DATE_LOCATION, RATING_MAX } from '../../consts';
 import { formatDateForTimeTag } from '../../helpers';
 import { TReview } from '../../types/reviews';
@@ -42,5 +43,5 @@ function ReviewCard({ review }: ReviewsProps): JSX.Element {
   );
 }
 
-
-export default ReviewCard;
+const MemoReviewCard = memo(ReviewCard);
+export default MemoReviewCard;

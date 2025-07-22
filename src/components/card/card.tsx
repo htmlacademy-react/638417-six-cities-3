@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, RATING_MAX } from '../../consts';
 import { TOffer } from '../../types/offers';
+import { memo } from 'react';
 
 type CardProps = {
   offer: TOffer;
@@ -78,4 +79,6 @@ function Card({offer, handleHover, nearPlaces}: CardProps): JSX.Element {
     </article>
   );
 }
-export default Card;
+
+const MemoCard = memo(Card);
+export default MemoCard;

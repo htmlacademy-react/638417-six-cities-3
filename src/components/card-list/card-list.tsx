@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { TOffer } from '../../types/offers';
 import Card from '../card/card';
 import { Nullable } from 'vitest';
@@ -7,6 +7,7 @@ import Sort from '../sort/sort';
 import { useAppSelector } from '../../hooks';
 import Spiner from '../spiner/spiner';
 import { RequestStatus } from '../../consts';
+import { selectOffersStatus } from '../../store/selectors/offers';
 
 type CardListProps = {
   offers: TOffer[];
@@ -15,11 +16,12 @@ type CardListProps = {
 function CardList({ offers }: CardListProps): JSX.Element {
   const [activeOffer, setActiveOffer] = useState<Nullable<TOffer>>(null);
 
-  const handleHover = (offer?: TOffer) => {
+  const handleHover = useCallback((offer?: TOffer) => {
     setActiveOffer(offer || null);
-  };
+  }, [setActiveOffer]);
 
-  const status = useAppSelector((state) => state.offers.status);
+
+  const status = useAppSelector(selectOffersStatus);
 
   const currentCity = offers[0]?.city;
 

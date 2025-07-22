@@ -1,4 +1,4 @@
-import React, { FormEvent, ReactEventHandler, useState } from 'react';
+import React, { FormEvent, memo, ReactEventHandler, useState } from 'react';
 import { RATINGS } from '../../consts';
 import { useAppDispatch } from '../../hooks';
 import { postOfferComments } from '../../store/thunks/comments';
@@ -83,4 +83,5 @@ function ReviewsForm():JSX.Element {
   );
 }
 
-export default ReviewsForm;
+const MemoForm = memo(ReviewsForm);
+export default MemoForm;
