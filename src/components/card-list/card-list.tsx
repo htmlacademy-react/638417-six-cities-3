@@ -7,6 +7,7 @@ import Sort from '../sort/sort';
 import { useAppSelector } from '../../hooks';
 import Spiner from '../spiner/spiner';
 import { RequestStatus } from '../../consts';
+import { selectOffersStatus } from '../../store/selectors/offers';
 
 type CardListProps = {
   offers: TOffer[];
@@ -20,7 +21,7 @@ function CardList({ offers }: CardListProps): JSX.Element {
   }, [setActiveOffer]);
 
 
-  const status = useAppSelector((state) => state.offers.status);
+  const status = useAppSelector(selectOffersStatus);
 
   const currentCity = offers[0]?.city;
 

@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TOffer } from '../../types/offers';
 import { RequestStatus } from '../../consts';
 import { fetchOffer, fetchOfferNearby } from '../thunks/offer';
-import { RootState } from '../../types/state';
 
 type TOfferInitialState = {
   info: TOffer | null;
@@ -53,8 +52,4 @@ const offerSlice = createSlice({
   }
 });
 
-export const selectOffer = (state: RootState) => state.offer.info;
-export const selectOfferNearby = (state: RootState) => state.offer.nearby;
-export const selectOfferStatus = (state: RootState) => state.offer.status;
-export const selectOfferError = (state: RootState) => state.offer.error;
 export default offerSlice;

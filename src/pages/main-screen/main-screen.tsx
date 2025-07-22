@@ -6,15 +6,17 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { SortType } from '../../consts';
 import { setCity } from '../../store/slices/filter';
 import Locations from '../../components/locations/locations';
+import { selectOffers } from '../../store/selectors/offers';
+import { selectCity, selectSort } from '../../store/selectors/filter';
 
 
 function MainScreen(): JSX.Element {
   const [curentOffers, setCurentOffers] = useState<TOffer[]>([]);
 
-  const offers = useAppSelector((state) => state.offers.info);
+  const offers = useAppSelector(selectOffers);
 
-  const curentCity = useAppSelector((state) => state.filter.city);
-  const curentSort = useAppSelector((state) => state.filter.sort);
+  const curentCity = useAppSelector(selectCity);
+  const curentSort = useAppSelector(selectSort);
 
   const offersByCities = useMemo(() => groupOffersByCity(offers), [offers]);
   const cityList = useMemo(() => offersByCities.map((c)=>c.city), [offersByCities]) ;

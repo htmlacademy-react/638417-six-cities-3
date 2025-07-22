@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { useAppSelector } from '../../hooks';
 import { toast } from 'react-toastify';
-import { selectOfferError } from '../../store/slices/offer';
-import { selectOffersError } from '../../store/slices/offers';
-import { selectUserError } from '../../store/slices/user';
+import { selectOfferError } from '../../store/selectors/offer';
+import { selectUserError } from '../../store/selectors/user';
+import { selectOffersError } from '../../store/selectors/offers';
 
 function ErrorToastHandler() {
   const offersError = useAppSelector(selectOffersError);

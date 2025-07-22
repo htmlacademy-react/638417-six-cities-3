@@ -11,9 +11,9 @@ import { Nullable } from 'vitest';
 import Card from '../../components/card/card';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOffer, fetchOfferNearby } from '../../store/thunks/offer';
-import { selectOffer, selectOfferNearby, selectOfferStatus } from '../../store/slices/offer';
-import { selectComments } from '../../store/slices/offers';
+import { selectOffer, selectOfferNearby, selectOfferStatus } from '../../store/selectors/offer';
 import { fetchOfferComments } from '../../store/thunks/comments';
+import { selectComments } from '../../store/selectors/offers';
 
 
 function OfferScreen(): JSX.Element {

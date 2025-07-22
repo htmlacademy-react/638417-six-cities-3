@@ -2,7 +2,8 @@ import { memo, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts';
 import { useAppSelector } from '../../hooks';
-import { selectAuthorizationStatus, selectUser } from '../../store/slices/user';
+import { selectAuthorizationStatus, selectUser } from '../../store/selectors/user';
+
 
 type UserProps = {
   handleSignOut: (evt: MouseEvent<HTMLAnchorElement>) => void;

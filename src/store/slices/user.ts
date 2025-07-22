@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../consts';
 import { checkAuth, login, logout } from '../thunks/user';
 import { TUserData } from '../../types/user';
-import { RootState } from '../../types/state';
-import { createSelector } from '@reduxjs/toolkit';
 
 export type TUserInitialState = {
   authorizationStatus: AuthorizationStatus;
@@ -72,23 +70,6 @@ const userSlice = createSlice({
       });
   },
 });
-
-const selectUserState = (state: RootState) => state.user;
-
-export const selectUser = createSelector(
-  selectUserState,
-  (state) => state.user
-);
-
-export const selectAuthorizationStatus = createSelector(
-  selectUserState,
-  (state) => state.authorizationStatus
-);
-
-export const selectUserError = createSelector(
-  selectUserState,
-  (state) => state.error
-);
 
 export const { setAuthorization } = userSlice.actions;
 export default userSlice;
