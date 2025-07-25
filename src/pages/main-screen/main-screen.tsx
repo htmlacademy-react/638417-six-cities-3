@@ -19,7 +19,7 @@ function MainScreen(): JSX.Element {
   const curentSort = useAppSelector(selectSort);
 
   const offersByCities = useMemo(() => groupOffersByCity(offers), [offers]);
-  const cityList = useMemo(() => offersByCities.map((c)=>c.city), [offersByCities]) ;
+  const cityList = useMemo(() => offersByCities.map((c) => c.city), [offersByCities]);
 
   const dispatch = useAppDispatch();
 
@@ -55,15 +55,14 @@ function MainScreen(): JSX.Element {
     setCurentOffers(sortedOffers);
   }, [curentCity, offersByCities, curentSort]);
 
-
   return (
-    <main className="page__main page__main--index">
+    <main className={`page__main page__main--index ${curentOffers.length <= 0 && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <Locations cityList={cityList} curentCity={curentCity} handleCitySelect={handleCitySelect}/>
+        <Locations cityList={cityList} curentCity={curentCity} handleCitySelect={handleCitySelect} />
       </div>
       <div className="cities">
-        <CardList offers={curentOffers}/>
+        <CardList offers={curentOffers} />
       </div>
     </main>
   );
