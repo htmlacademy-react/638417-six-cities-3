@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../consts';
 import { useAppSelector } from '../../hooks';
 import { selectAuthorizationStatus, selectUser } from '../../store/selectors/user';
+import { selectFavorites } from '../../store/selectors/favorites';
 
 
 type UserProps = {
@@ -13,6 +14,7 @@ function User({ handleSignOut}: UserProps): JSX.Element {
 
   const user = useAppSelector(selectUser);
   const authorizationStatus = useAppSelector(selectAuthorizationStatus);
+  const favorites = useAppSelector(selectFavorites);
 
   return (
 
@@ -31,7 +33,7 @@ function User({ handleSignOut}: UserProps): JSX.Element {
                 <span className="header__user-name user__name">
                   {user?.email}
                 </span>
-                <span className="header__favorite-count">3</span>
+                <span className="header__favorite-count">{favorites?.length}</span>
               </>
             ) : <span className="header__login">Sign in</span>}
 

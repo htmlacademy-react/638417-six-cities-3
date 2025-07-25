@@ -5,6 +5,7 @@ import filterSlice from './slices/filter';
 import offersSlice from './slices/offers';
 import userSlice from './slices/user';
 import offerSlice from './slices/offer';
+import favoritesSlice from './slices/favorites';
 
 export const api = createAPI();
 
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   [offerSlice.name]: offerSlice.reducer,
   [filterSlice.name]: filterSlice.reducer,
   [userSlice.name]: userSlice.reducer,
+  [favoritesSlice.name]: favoritesSlice.reducer,
 });
 
 export const store = configureStore({

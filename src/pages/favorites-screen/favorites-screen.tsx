@@ -1,14 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import FavoritesCard from '../../components/favorites-card/favorites-card';
 import { groupOffersByCity } from '../../helpers';
-import { TOffer } from '../../types/offers';
+import { selectFavorites } from '../../store/selectors/favorites';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesScreenProps = {
-  offers: TOffer[];
-}
+function FavoritesScreen(): JSX.Element {
 
-function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {
-  const offersByCities = groupOffersByCity(offers);
+  const favorites = useAppSelector(selectFavorites);
+  const offersByCities = groupOffersByCity(favorites);
 
   return (
     <>

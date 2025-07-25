@@ -1,12 +1,11 @@
 import { useEffect, useRef } from 'react';
 import leaflet from 'leaflet';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
-import { TCity, TOffer } from '../../types/offers';
+import { TOffer } from '../../types/offers';
 import { useMap } from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 
 type MapComponentProps = {
-  city: TCity;
   offers: TOffer[];
   activeOffer?: TOffer | null;
   className: string;
@@ -24,9 +23,9 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-function MapComponent({ city, offers, activeOffer, className }: MapComponentProps): JSX.Element {
+function MapComponent({ offers, activeOffer, className }: MapComponentProps): JSX.Element {
   const mapContainerRef = useRef(null);
-  const map = useMap({ location: city.location, containerRef: mapContainerRef });
+  const map = useMap({ location: offers[0].city.location, containerRef: mapContainerRef });
   const markersRef = useRef<leaflet.Marker[]>([]);
 
   useEffect(() => {

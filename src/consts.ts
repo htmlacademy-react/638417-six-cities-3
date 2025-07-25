@@ -44,3 +44,8 @@ export enum Endpoint {
   Logout = '/logout',
   Offers = '/offers',
 }
+
+export enum BookmarkButtonPlace {
+  Card = 'card',
+  OfferPage = 'offer-page'
+}

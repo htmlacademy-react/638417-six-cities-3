@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { RATING_MAX, RequestStatus } from '../../consts';
+import { BookmarkButtonPlace, RATING_MAX, RequestStatus } from '../../consts';
 import { TOffer } from '../../types/offers';
 import EmptyScreen from '../empty-screen/empty-screen';
 import Host from '../../components/host/host';
@@ -14,6 +14,8 @@ import { fetchOffer, fetchOfferNearby } from '../../store/thunks/offer';
 import { selectOffer, selectOfferNearby, selectOfferStatus } from '../../store/selectors/offer';
 import { fetchOfferComments } from '../../store/thunks/comments';
 import { selectComments } from '../../store/selectors/offers';
+import Spiner from '../../components/spiner/spiner';
+import BookmarkButton from '../../components/bookmark-button/bookmark-button';
 
 
 function OfferScreen(): JSX.Element {
@@ -42,7 +44,7 @@ function OfferScreen(): JSX.Element {
   },[dispatch, id]);
 
   if (currentOfferStatus === RequestStatus.Loading) {
-    return <>Loading</>;
+    return <Spiner />;
   }
 
   if (currentOfferStatus === RequestStatus.Failed) {
@@ -90,15 +92,7 @@ function OfferScreen(): JSX.Element {
               )}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <button
-                  className={`offer__bookmark-button button ${isFavorite ? 'offer__bookmark-button--active' : ''}`}
-                  type="button"
-                >
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton place={BookmarkButtonPlace.OfferPage} isFavorite={isFavorite} id={currentOffer.id} />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -132,7 +126,7 @@ function OfferScreen(): JSX.Element {
               {reviews && <Reviews reviews={reviews} />}
             </div>
           </div>
-          {(currentOfferNearby.length > 0 && currentCity) && <MapComponent className='offer__map' city={currentCity} offers={currentOfferNearby} activeOffer={activeOffer} />}
+          {(currentOfferNearby.length > 0 && currentCity) && <MapComponent className='offer__map' offers={currentOfferNearby} activeOffer={activeOffer} />}
         </section>
         <div className="container">
           <section className="near-places places">

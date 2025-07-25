@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, RATING_MAX } from '../../consts';
+import { AppRoute, BookmarkButtonPlace, RATING_MAX } from '../../consts';
 import { TOffer } from '../../types/offers';
+import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type FavoritesCardProps = {
   offer: TOffer;
 }
 
 function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
-  const {isPremium, previewImage, price, rating, title, type, id} = offer;
+  const {isPremium, previewImage, price, rating, title, type, id, isFavorite} = offer;
 
   return (
     <article className="favorites__card place-card">
@@ -35,19 +36,7 @@ function FavoritesCard({ offer }: FavoritesCardProps): JSX.Element {
                 /&nbsp;night
               </span>
             </div>
-            <button
-              className="place-card__bookmark-button place-card__bookmark-button--active button"
-              type="button"
-            >
-              <svg
-                className="place-card__bookmark-icon"
-                width={18}
-                height={19}
-              >
-                <use xlinkHref="#icon-bookmark" />
-              </svg>
-              <span className="visually-hidden">In bookmarks</span>
-            </button>
+            <BookmarkButton place={BookmarkButtonPlace.Card} isFavorite={isFavorite} id={id} />
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">

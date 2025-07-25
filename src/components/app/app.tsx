@@ -9,7 +9,7 @@ import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 
 import useInitCity from '../../hooks/use-init-city';
 import { useEffect } from 'react';
@@ -21,11 +21,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ErrorToastHandler from '../toast/toast';
 import { checkAuth } from '../../store/thunks/user';
-import { selectOffers } from '../../store/selectors/offers';
+import { fetchAllFavorites } from '../../store/thunks/favorites';
 
 function App(): JSX.Element {
 
-  const offers = useAppSelector(selectOffers);
   const dispatch = useAppDispatch();
 
   useInitCity();
@@ -33,8 +32,8 @@ function App(): JSX.Element {
   useEffect(()=>{
     dispatch(checkAuth());
     dispatch(fetchAllOffers());
+    dispatch(fetchAllFavorites());
   },[dispatch]);
-
 
   return (
     <HelmetProvider>
@@ -61,7 +60,7 @@ function App(): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute >
-                  <FavoritesScreen offers={offers} />
+                  <FavoritesScreen />
                 </PrivateRoute>
               }
             />
