@@ -1,0 +1,7 @@
+.place-card:not(:has(a:hover)) {
+  opacity: 1;
+}
+
+.place-card:has(a:hover) {
+  opacity: 0.6;
+}

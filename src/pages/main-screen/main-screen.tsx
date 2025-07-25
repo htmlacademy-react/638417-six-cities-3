@@ -55,15 +55,14 @@ function MainScreen(): JSX.Element {
     setCurentOffers(sortedOffers);
   }, [curentCity, offersByCities, curentSort]);
 
-
   return (
-    <main className="page__main page__main--index">
+    <main className={`page__main page__main--index ${curentOffers.length <= 0 && 'page__main--index-empty'}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <Locations cityList={cityList} curentCity={curentCity} handleCitySelect={handleCitySelect}/>
       </div>
       <div className="cities">
-        <CardList offers={curentOffers}/>
+        <CardList offers={curentOffers} curentCity={curentCity} />
       </div>
     </main>
   );

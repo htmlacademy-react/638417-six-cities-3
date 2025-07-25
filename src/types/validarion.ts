@@ -9,3 +9,8 @@ export type TValidationErrorResponse = {
   message: string;
   details: TValidationDetail[];
 };
+
+export type TCommonErrorResponse = {
+  errorType: 'COMMON_ERROR';
+  message: string;
+};
